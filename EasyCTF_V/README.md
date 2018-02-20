@@ -12,7 +12,6 @@ This repository serves as a writeup for EasyCTF_V solved by TheEmperors's team
 **Description:**
 
 >Using your favorite language of choice, print Hello, world! to the output.
-
 > * For Python, consider the print function.
 > * For Java, consider System.out.println.
 > * For CXX, consider including stdio.h and using the printf function.
@@ -24,9 +23,11 @@ This repository serves as a writeup for EasyCTF_V solved by TheEmperors's team
 ### Write-up
 Using Python2
 
-```
+```python
 print "test"
 ```
+
+___
 
 ## Intro: Hello, world!
 
