@@ -1,0 +1,2 @@
+# CTF
+All CTF events
