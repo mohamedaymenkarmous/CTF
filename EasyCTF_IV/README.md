@@ -5,6 +5,34 @@
 # EasyCTF_V Writeup
 This repository serves as a writeup for EasyCTF_V solved by TheEmperors's team
 
+## Discord
+
+**Category:** Misc
+**Points:** 1
+**Description:**
+
+>Join the Discord chat! Maybe if you use it enough, you'll find the flag.
+
+**Hint:**
+
+>The link to joining the Discord is on our Updates page ;) Make sure you read the info channel.
+
+<p align="center">
+<img src="resources/misc-1-discord/_description.PNG"/>
+</p>
+
+### Write-up
+We joined the Discord #general channel related to the CTF and we saw the flag in the top of the page with the channel description
+<p align="center">
+<img src="resources/misc-1-discord/1.PNG"/>
+</p>
+
+___
+
+
+
+
+
 ## Intro: Hello, world!
 
 **Category:** Intro
@@ -1397,13 +1425,13 @@ ___
 
 
 
-##
+## format
 
-**Category:** Intro
-**Points:** 0
+**Category:** Binary Exploitation
+**Points:** 160
 **Description:**
 
->
+>Go to ```/problems/format``` on the shell server and tell me what is in ```flag.txt```.
 
 **Hint:**
 
@@ -1420,13 +1448,265 @@ ___
 
 
 
-##
+## Starman 2
 
-**Category:** Intro
-**Points:** 0
+**Category:** Programming
+**Points:** 175
 **Description:**
 
->
+>Starman is back at it again! Having successfully brought back several hackers from the asteroid belt, he wants to eliminate the possibility of competition from the hackers he left behind. He has equipped his Roadster with an asteroid-destroying laser, but unfortunately he's only able to fire it once. Asteroids can be represented as points in a 2D plane. The laser, when fired, sends a beam of width W straight forward, and destroys everything in its path. Starman can go anywhere to fire his beam. It's expensive to fire wider beams, so your job is to find out the smallest possible width of the beam.
+>**Input Format**
+>The first line contains a single integer N, representing the number of asteroids. The following N lines each contain two integers x_i and y_i, representing the x and y coordinates of the ith asteroid.
+>```3 <= N <= 200000```
+>```-10^8 <= x_i, y_i <= 10^8```
+>**Output Format**
+>A decimal printed to six decimal places (including trailing zeroes; this can be accomplished using printf or your language's equivalent) representing the minimum possible value of W.
+>**Sample Input**
+>```5```
+>```12 4```
+>```-2 5```
+>```-8 -7```
+>```-1 -11```
+>```5 3```
+>**Sample Ouput**
+>```11.234578```
+
+**Hint:**
+
+>(No hint)
+
+<p align="center">
+<img src="resources/programming-175-starman_2/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+## RSA_v
+
+**Category:** Cryptography
+**Points:** 200
+**Description:**
+
+>Bob is extremely paranoid, so he decided that just one RSA encryption is not enough. Before sending his message to Alice, he forced her to create 5 public keys so he could encrypt his message 5 times! Show him that he still is not secure... [rsa.txt](resources/cryptography-200-rsa_v/rsa.txt).
+
+**Hint:**
+
+>(No hint)
+
+<p align="center">
+<img src="resources/cryptography-200-rsa_v/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+## Souper Strong Primes
+
+**Category:** Cryptography
+**Points:** 20
+**Description:**
+
+>Technically I used strong primes. But are they really strong in this case? They are big, but there might still be an issue here. [n.txt](resources/cryptography-200-souper_strong_primes/n.txt) [e.txt](resources/cryptography-200-souper_strong_primes/e.txt) [c.txt](resources/cryptography-200-souper_strong_primes/c.txt)
+
+**Hint:**
+
+>I chose "strong" primes, according to wikipedia. But are there strong primes that aren't cryptographically secure for RSA?
+
+<p align="center">
+<img src="resources/cryptography-200-souper_strong_primes/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+## Pixelly
+
+**Category:** Reverse Engineering
+**Points:** 220
+**Description:**
+
+>I've created a new [ASCII art generator](http://c1.easyctf.com:12489/), and it works beautifully! But I'm worried that someone might have put a backdoor in it. Maybe you should [check out the source](resources/reverse_engineering-220-pixelly/asciinator.py) for me...
+
+**Hint:**
+
+>How many characters do you really need, now?
+
+<p align="center">
+<img src="resources/reverse_engineering-220-pixelly/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+## Little Language
+
+**Category:** Miscellaneous
+**Points:** 250
+**Description:**
+
+>I want root access to this special programming portal, and this file is my only clue. Maybe the password is inside? Even if it is, I'm not sure how to enter it. encrypted
+>```nc c1.easyctf.com 12480```
+>Oh! Almost forgot... [this](resources/miscellaneous-250-little_language/parser.txt) might help.
+
+**Hint:**
+
+>One small step for man...
+
+<p align="center">
+<img src="resources/miscellaneous-250-little_language/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+## Nosource
+
+**Category:** Web
+**Points:** 250
+**Description:**
+
+>All you CTFers are sure getting on my nerves with your source-viewing and developer tools-ing! Alas, despite my best wishes, the experienced programmers on the wonderful website StackOverflow tell me that it's [impossible](https://stackoverflow.com/q/6597224/689161) to keep you from looking at the HTML. But a disable right click script certainly won't stop an experienced CTFer like you! So finding the flag in the source of this problem should be no trouble, [right](http://c1.easyctf.com:12486/)?
+
+**Hint:**
+
+>If you can't beat 'em, maybe you can get around 'em somehow?
+
+<p align="center">
+<img src="resources/web-250-nosource/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+## Hidden Key
+
+**Category:** Cryptography
+**Points:** 250
+**Description:**
+
+>Ugh, another RSA problem? Help me decrypt this message please [file](resources/cryptography-250-hidden_key/hiddenkey.txt).
+
+**Hint:**
+
+>i left an extra key in my back pocket
+
+<p align="center">
+<img src="resources/cryptography-250-hidden_key/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+
+## fumblr
+
+**Category:** Web
+**Points:** 275
+**Description:**
+
+>Come check out the latest blogging platform all the cool kids are using! I tried my hardest to make it hack-proof. If you can read the admin's hidden posts, I'll even give you a flag!! [Good luck](http://c1.easyctf.com:12491/)!?
+
+**Hint:**
+
+>you wish
+
+<p align="center">
+<img src="resources/web-275-fumblr/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+
+## LicenseCheck
+
+**Category:** Reverse Engineering
+**Points:** 300
+**Description:**
+
+>I want a valid license for a piece of software, [here](resources/reverse_engineering-300-licensechecklicense_check.exe) is the license validation software. Can you give me a valid license for the email ```mzisthebest@notarealemail.com```?
+>Note: flag is not in easyctf{} format.
+
+**Hint:**
+
+>(No hint)
+
+<p align="center">
+<img src="resources/reverse_engineering-300-licensecheck/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+
+## Special Endings
+
+**Category:** Forensics
+**Points:** 350
+**Description:**
+
+>She taught us so much... [tribute](resources/forensics-350-special_endings/encrypted_lines.txt)
+
+**Hint:**
+
+>RFC 4648
+
+<p align="center">
+<img src="resources/forensics-350-special_endings/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+
+## Fanfic Studio
+
+**Category:** Binary Exploitation
+**Points:** 350
+**Description:**
+
+>Go to ```/problems/fanfic``` to check out my cool fanfic writing tool. I expect you to send me some steamy fanfics of michael.
 
 **Hint:**
 
@@ -1443,135 +1723,21 @@ ___
 
 
 
-##
 
-**Category:** Intro
-**Points:** 0
+## RSA Returns
+
+**Category:** Cryptography
+**Points:** 400
 **Description:**
 
->
+> It's the return of everyone's favorite cryptosystem! Crack it for another flag. Help me decipher [file](resources/cryptography-400-rsa_returns/hardrsa.txt).
 
 **Hint:**
 
->(No hint)
+>lolno
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/cryptography-400-rsa_returns/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -1593,13 +1759,9 @@ ___
 
 
 
+## 
 
-
-
-
-##
-
-**Category:** Intro
+**Category:** 
 **Points:** 0
 **Description:**
 
