@@ -405,7 +405,7 @@ ___
 
 ### Write-up
 We have to reverse that cipher text. So we need to add just one line to the python file:
-```python3
+```python
 #!/usr/bin/env python3
 import binascii
 key = "graAhogG"
