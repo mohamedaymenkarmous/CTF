@@ -188,8 +188,30 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Just try to connect to that address using netcat in your shell terminal:
+
+```
+nc c1.easyctf.com 12481
+```
+
+Output:
+```
+enter your player key:
+```
+So you should provied the key:
+```
+enter your player key: 3770529
+```
+
+Output:
+```
+thanks! here's your key: easyctf{hello_there!_C06DFE0d60723Bec}
+```
+
+So the flag is : ```easyctf{hello_there!_C06DFE0d60723Bec}```
 ___
+
+
 
 ## Intro: Hashing
 
@@ -208,7 +230,8 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Just hash that file using an online tool : ```ce53d733c0d7738c7a390c21ef65e8b4746795d6d6c2b8269c810bc53784bfebfeaefbc6b66e95b84b5d2eed9ae72169b960ba5ee50846233935dc903476a20f```.
+So the flag is : ```easyctf{ce53d733c0d7738c7a390c21ef65e8b4746795d6d6c2b8269c810bc53784bfebfeaefbc6b66e95b84b5d2eed9ae72169b960ba5ee50846233935dc903476a20f}```.
 ___
 
 
@@ -231,7 +254,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+The best solution was provided by the original write-up: [here](https://github.com/EasyCTF/easyctf-iv-problems/blob/master/prog_xor/grader.py)
 ___
 
 
