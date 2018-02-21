@@ -761,13 +761,15 @@ ___
 
 
 
+
+
 ## In Plain Sight
 
 **Category:** Web
 **Points:** 70
 **Description:**
 
->I've hidden a flag somewhere at [this](blockingthesky.com) site... can you find it?
+>I've hidden a flag somewhere at [this](http://blockingthesky.com) site... can you find it?
 >Note: There is not supposed to be a website. Nothing is "down". The YouTube link that some of you are finding is unintentional, please ignore it.
 
 **Hint:**
@@ -779,7 +781,38 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+The domain name `````` is not accessible in the browser. And considering the note and the hint, it may be a dns task.
+
+But in the DNS records, the record in which we can hide a flag is the TXT record.
+
+So, we execute this command in a shell terminal:
+```sh
+dig TXT blockingthesky.com
+```
+
+Output :
+```
+; <<>> DiG 9.8.2rc1-RedHat-9.8.2-0.62.rc1.el6_9.5 <<>> blockingthesky.com txt
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 35257
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;blockingthesky.com.            IN      TXT
+
+;; ANSWER SECTION:
+blockingthesky.com.     30      IN      TXT     "_globalsign-domain-verification=kXlECiyonFE_qsQR-8ki6BOIdVru3bzxpwMDZr334_"
+blockingthesky.com.     30      IN      TXT     "easyctf{betcha_wish_you_could_have_used_ANY}"
+
+;; Query time: 9 msec
+;; SERVER: 213.186.33.99#53(213.186.33.99)
+;; WHEN: Wed Feb 21 14:02:14 2018
+;; MSG SIZE  rcvd: 180
+```
+
+So the flag is : ```easyctf{betcha_wish_you_could_have_used_ANY}```.
+
 ___
 
 
