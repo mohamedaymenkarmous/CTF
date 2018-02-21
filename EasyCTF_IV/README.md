@@ -1660,7 +1660,44 @@ ___
 </p>
 
 ### Write-up
-Task not solved
+After Bob obtains Alice's public key, he can send a message {{mvar|M}} to Alice.
+
+To do it, he first turns {{mvar|M}} (strictly speaking, the un-padded plaintext) into an integer {{mvar|m}} (strictly speaking, the padded plaintext), such that {{math|0 ≤ ''m'' < ''n''}} by using an agreed-upon reversible protocol known as a [[#Padding schemes|padding scheme]]. He then computes the ciphertext {{mvar|c}}, using Alice's public key {{mvar|e}}, corresponding to
+
+: <math> c \equiv m^e \pmod{n} </math>
+
+This can be done reasonably quickly, even for 500-bit numbers, using modular exponentiation. Bob then transmits {{mvar|c}} to Alice.
+
+python3 -m pip install owiner
+
+python3
+
+import owiener
+
+e1=
+e2=
+e3=
+e4=
+e5=
+e=e1*e2*e3*e4*e5
+n=9247606623523847772698953161616455664821867183571218056970099751301682205123115716089486799837447397925308887976775994817175994945760278197527909621793469
+d = owiener.attack(e, n)
+
+if d is None:
+    print("Failed")
+else:
+    print("d={}".format(d))
+
+#n=b0915c0eb299cbd5d54d3a5c0dbe04932c6bcdd078cdb3ce1849a620e7196db22c97edfeb731a33aedbdeb28ccbb6533683c0e259d17e0308c48ba72e8d382bd
+#d=80e51c075ffcbe945903af2e1075fb6d
+#e=86d840a79a29eafc30ebb64fc18a6e55a24cf2bdb046dd9cc4271eef471da0c3e145296eb6e9667c2f05fde8d3afbab6803ed6139f8e938c4d07dc358b5fc5
+#c=87e5ef7da5f0104abfdffdf497717b9324bc78f7bfa985b9d662da34ea1c8607cea3a88bb8fdc089bc2266818a00aa0b426ad7ec86056757b4c1b4630aa02a30
+
+#http://extranet.cryptomathic.com/rsacalc/index
+
+#656173796374667b6b65626c667466747a696261746473716d716f74656d6d74797d
+
+So the flag is : `easyctf{keblftftzibatdsqmqotemmty}`
 ___
 
 
