@@ -1752,15 +1752,16 @@ ___
 After solving all these tasks in a team of one player, my team **TheEmperors** get the score 2271 and get ranked 111/2146 :
 
 <p align="center">
-<img src="resources/scoreboard/1.PNG"/>
+<img src="scoreboard/1.PNG"/>
 </p>
 <p align="center">
-<img src="resources/scoreboard/2.PNG"/>
+<img src="scoreboard/2.PNG"/>
 </p>
 <p align="center">
-<img src="resources/scoreboard/3.PNG"/>
+<img src="scoreboard/3.PNG"/>
 </p>
+<p align="center">**...**<p>
 <p align="center">
-<img src="resources/scoreboard/4.PNG"/>
+<img src="scoreboard/4.PNG"/>
 </p>
 
