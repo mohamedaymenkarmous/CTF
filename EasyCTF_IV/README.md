@@ -1660,8 +1660,8 @@ ___
 </p>
 
 ### Write-up
-As we know in RSA to encrypt a message (m), we should use the public key (n,e) like this : c &equiv; (m^e) (mod n)
-And to decrypt a ciphertext (c), we should use the private key (d,e,n) like this : c^d &equiv; ((m^e)^d) &equiv; m mod n  
+As we know in RSA to encrypt a message (m), we should use the public key (n,e) like this : `c &equiv; (m^e) (mod n)`
+And to decrypt a ciphertext (c), we should use the private key (d,e,n) like this : ``c^d &equiv; ((m^e)^d) &equiv; m mod n``  
 python3 -m pip install owiner
 
 python3
