@@ -1761,7 +1761,7 @@ After solving all these tasks in a team of one player, my team **TheEmperors** g
 <img src="scoreboard/3.PNG"/>
 </p>
 <p align="center">**...**<p>
-<p align="center">
+<p align="center"> 
 <img src="scoreboard/4.PNG"/>
 </p>
 
