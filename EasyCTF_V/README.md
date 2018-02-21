@@ -34,6 +34,9 @@ ___
 
 
 
+
+
+
 ## Intro: Linux
 
 **Category:** Intro
@@ -89,6 +92,9 @@ ___
 
 
 
+
+
+
 ## The Oldest Trick in the Book
 
 **Category:** Intro
@@ -112,6 +118,9 @@ We try to brute force it 26 times and we can easily find the flag in 19th rotati
 
 So the flag is: ```easyctf{w3lc0m3_70_345yc7f_799a21}```
 ___
+
+
+
 
 
 
@@ -143,7 +152,11 @@ So we inspect the source code :
 <img src="resources/intro-10-web/2.PNG"/>
 </p>
 And there we find the flag : ```easyctf{hidden_from_the_masses_11a8b2}```
+
 ___
+
+
+
 
 
 
@@ -168,6 +181,11 @@ It looks like a hex code.
 Decoding it from hex to ascii, the plain text is: hexit_mate_428e3e58b7eb4ccb2c46
 So the flag is: ```easyctf{hexit_mate_428e3e58b7eb4ccb2c46}```
 ___
+
+
+
+
+
 
 ## Intro: Netcat
 
@@ -213,6 +231,9 @@ ___
 
 
 
+
+
+
 ## Intro: Hashing
 
 **Category:** Miscellaneous
@@ -231,8 +252,13 @@ ___
 
 ### Write-up
 Just hash that file using an online tool : ```ce53d733c0d7738c7a390c21ef65e8b4746795d6d6c2b8269c810bc53784bfebfeaefbc6b66e95b84b5d2eed9ae72169b960ba5ee50846233935dc903476a20f```.
+
 So the flag is : ```easyctf{ce53d733c0d7738c7a390c21ef65e8b4746795d6d6c2b8269c810bc53784bfebfeaefbc6b66e95b84b5d2eed9ae72169b960ba5ee50846233935dc903476a20f}```.
+
 ___
+
+
+
 
 
 
@@ -254,8 +280,16 @@ ___
 </p>
 
 ### Write-up
-The best solution was provided by the original write-up: [here](https://github.com/EasyCTF/easyctf-iv-problems/blob/master/prog_xor/grader.py)
+The best solution was provided by the original write-up: [here](https://github.com/EasyCTF/easyctf-iv-problems/blob/master/prog_xor/grader.py):
+```python
+#Original EasyCTF_V write-up
+a, b = map(int, input().split(" "))
+print(a ^ b)
+```
+
 ___
+
+
 
 
 
@@ -276,8 +310,11 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+We search in that txt file the word "easyctf{" and so the flag found is : ```easyctf{iBfbRnwyuEImrogHTqVHFgMvL}```
+
 ___
+
+
 
 
 
@@ -298,8 +335,19 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+We open that txt file in the browser.
+
+Fortunately the browser detects images even with the .txt extension.
+
+If you can't see the flag, just you have to change the file extension to .png.
+
+Why .png extension ? Just run the command ```file flag.txt``` to know the type of file from the header bytes.
+
+So the flag is : ```easyctf{FLaaaGGGGGg}```
+
 ___
+
+
 
 
 
