@@ -1,0 +1,2 @@
+S : E                           { ExpS $1 }
+  | global var '=' E            { GlobalVarS $2 $4 }
