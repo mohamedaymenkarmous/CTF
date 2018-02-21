@@ -27,6 +27,8 @@ We joined the Discord #general channel related to the CTF and we saw the flag in
 <img src="resources/misc-1-discord/1.PNG"/>
 </p>
 
+So the flag is : ```easyctf{Is_this_really_a_D1sc0rd_fl4g?}```.
+
 ___
 
 
@@ -114,7 +116,7 @@ user666@shell:~$ cat .flag
 easyctf{i_know_how_2_find_hidden_files!}
 ```
 
-So the flag is : ```easyctf{i_know_how_2_find_hidden_files!}```
+So the flag is : ```easyctf{i_know_how_2_find_hidden_files!}```.
 
 ___
 
@@ -767,7 +769,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -791,7 +793,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -871,7 +873,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 
 ___
 
@@ -896,7 +898,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 
 ___
 
@@ -922,7 +924,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -946,7 +948,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1120,7 +1122,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1253,7 +1255,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1276,7 +1278,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1299,7 +1301,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1323,7 +1325,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1346,7 +1348,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1369,7 +1371,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1394,7 +1396,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1419,7 +1421,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1442,7 +1444,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1480,7 +1482,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1503,7 +1505,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1526,7 +1528,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1549,7 +1551,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1574,7 +1576,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1597,7 +1599,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1620,7 +1622,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1644,7 +1646,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1669,7 +1671,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1693,7 +1695,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1717,7 +1719,7 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
@@ -1741,42 +1743,24 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+Task not solved
 ___
 
 
+# Scoreboard
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 
-
-**Category:** 
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
+After solving all these tasks in a team of one player, my team **TheEmperors** get the score 2271 and get ranked 111/2146 :
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/scoreboard/1.PNG"/>
 </p>
-
-### Write-up
-Task no solved
-___
-
+<p align="center">
+<img src="resources/scoreboard/2.PNG"/>
+</p>
+<p align="center">
+<img src="resources/scoreboard/3.PNG"/>
+</p>
+<p align="center">
+<img src="resources/scoreboard/4.PNG"/>
+</p>
 
