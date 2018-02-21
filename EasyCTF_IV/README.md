@@ -954,7 +954,109 @@ ___
 </p>
 
 ### Write-up
-Task not solved
+When we connect to that address using that command, we get this output:
+```
++======================================================================+
+| Welcome to Zippy! We love US zip codes, so we'll be asking you some  |
+| simple facts about them, based on the 2010 Census. Only the          |
+| brightest zip-code fanatics among you will be able to succeed!       |
+| You'll have 30 seconds to answer 50 questions correctly.             |
++======================================================================+
+
+3... 2... 1...  Go!
+
+Round  1 / 50
+  What is the land area (m^2) of the zip code 77432?
+```
+
+And after some searches, we found the [database txt file](resources/miscellaneous-80-zippity/Gaz_zcta_national.txt) that we need.
+
+We download it and we start coding the [Python script](resources/miscellaneous-80-zippity/solution.py)
+
+```python
+#!/usr/bin/python
+import socket
+import time
+import re
+
+def calculator(data):
+  found=re.search('What is the (.*) of the zip code ([0-9]+)\?',data)
+  if found is not None:
+    s1=found.group(1)
+    s2=found.group(2)
+    # Source : https://www.census.gov/geo/maps-data/data/gazetteer2010.html : Zip Code Tabulation Areas
+    f=open("Gaz_zcta_national.txt","r").readlines()
+    line=""
+    # The columns of this file are separeted with many extra blank spaces
+    # So we convert all the spaces to one single ","
+    for s in f:
+      if s.strip().startswith(s2):
+        line=re.sub('[ \t]+',',',s.strip())
+    print line
+    lines=line.split(",")
+    if s1 == "land area (m^2)":
+      return lines[3]
+    elif s1 == "water area (m^2)":
+      return lines[4]
+    elif s1 == "latitude (degrees)":
+      return lines[7]
+    elif s1 == "longitude (degrees)":
+      return lines[8]
+    else:
+      print s1,"unknown"
+  return;
+
+def netcat(hostname, port):
+  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  s.connect((hostname, port))
+  time.sleep(.5)
+  data = s.recv(10240)
+  data = s.recv(10240)
+  data = s.recv(10240)
+  while 1:
+    data = s.recv(10240)
+    if data == "":
+      break
+    print "Received:", repr(data)
+    result=calculator(data)
+    #exit()
+    print "Sending",result
+    time.sleep(.2)
+    s.send(str(result)+"\n")
+    time.sleep(.2)
+  print "Connection closed."
+  s.close()
+
+netcat("c1.easyctf.com", 12483)
+```
+
+Now, we run this script :
+```
+chmod +x solution.py
+./solution.py
+```
+
+Output :
+```
+Received: ' Go!\n\nRound  1 / 50\n  What is the latitude (degrees) of the zip code 54001? '
+54001,8155,4254,299874596,17390925,115.782,6.715,45.334330,-92.386607
+Sending 45.334330
+Received: "\nThat's correct!\n\nRound  2 / 50\n  What is the water area (m^2) of the zip code 73063? "
+73063,691,330,277981594,652093,107.329,0.252,36.052707,-97.425008
+...
+Received: "\nThat's correct!\n\nRound 49 / 50\n  What is the latitude (degrees) of the zip code 10987? "
+10987,3395,1542,96140065,4275671,37.120,1.651,41.186928,-74.237350
+Sending 41.186928
+Received: "\nThat's correct!\n\nRound 50 / 50\n  What is the latitude (degrees) of the zip code 20687? "
+20687,313,244,15402392,20928213,5.947,8.080,38.064296,-76.340757
+Sending 38.064296
+Received: "\nThat's correct!\n\nYou succeeded! Here's the flag:\neasyctf{hope_you_liked_parsing_tsvs!}\n\n"
+Sending None
+Connection closed.
+```
+
+So the flag is : ```easyctf{hope_you_liked_parsing_tsvs!}```.
+
 ___
 
 
