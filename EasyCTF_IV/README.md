@@ -1467,7 +1467,7 @@ ___
 **Points:** 150
 **Description:**
 
->We had a flag, but lost it in a mess of alphabet soup! Can you help us [find it](resources/soupstituted.py)?
+>We had a flag, but lost it in a mess of alphabet soup! Can you help us [find it](resources/reverse_engineering-150-soupstitution_cipher/soupstituted.py)?
 >Connect to the server via ```nc c1.easyctf.com 12484```.
 
 **Hint:**
@@ -1475,11 +1475,12 @@ ___
 >I love parsing characters!
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/reverse_engineering-150-soupstitution_cipher/_description.PNG"/>
 </p>
 
 ### Write-up
 Task not solved
+
 ___
 
 
