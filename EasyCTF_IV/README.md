@@ -1757,10 +1757,11 @@ After solving all these tasks in a team of one player, my team **TheEmperors** g
 <p align="center">
 <img src="scoreboard/2.PNG"/>
 </p>
+<p align="center">...<p>
 <p align="center">
 <img src="scoreboard/3.PNG"/>
 </p>
-<p align="center">**...**<p>
+<p align="center">...<p>
 <p align="center"> 
 <img src="scoreboard/4.PNG"/>
 </p>
