@@ -1660,21 +1660,67 @@ ___
 </p>
 
 ### Write-up
-As we know in RSA to encrypt a message (m), we should use the public key (n,e) like this : ```c &equiv; (m^e) (mod n)```
+As we know in RSA to encrypt a message (m), we should use the public key (n,e) like this : c &equiv; (m^e) (mod n)
 
-And to decrypt a ciphertext (c), we should use the private key (d,e,n) like this : ``c^d &equiv; ((m^e)^d) &equiv; m mod n``  
+And to decrypt a ciphertext (c), we should use the private key (d,e,n) like this : c^d &equiv; ((m^e)^d) &equiv; m mod n
 
+So to encrypt a message (m) using 5 public keys, we have to apply the encryption operation 5 times. In this problem we have the same modulus (n) and a different public exponent (e).
+
+But when we encrypt a message using 2 public keys we have to apply this function : c1 &equiv; (m^e1) (mod n)
+
+Then, c2 &equiv; (c1^e2) (mod n) &equiv; (((m^e1) (mod n))^e2) (mod n) &equiv; ((m^e1)^e2) (mod n) &equiv; m^(e1*e2) (mod n)
+
+Maybe I did a wrong interpretation here because I'm not good in math, but this is what I think about this task and **if I did something wrong please edit and correct my answer**.
+
+So we get this expression because we have the same modulus (n).
+
+To generalise with the 5 public key, the final message is C &equiv; m^(e1*e2*e3*e4*e5) (mod n) &equiv; (m^E) (mod n)
+
+Where E=e1*e2*e3*e4*e5
+
+And the expression of "c" is the same as the encryption function of RSA cipher.
+
+But, to decrypt this message we have to find the private exponent "d".
+
+After some searches, we found an interesting thing using python
+
+```
+n=9247606623523847772698953161616455664821867183571218056970099751301682205123115716089486799837447397925308887976775994817175994945760278197527909621793469
+e=11*41*67623079903*5161910578063*175238643578591220695210061216092361657427152135258210375005373467710731238260448371371798471959129039441888531548193154205671
+c=7117565509436551004326380884878672285722722211683863300406979545670706419248965442464045826652880670654603049188012705474321735863639519103720255725251120
+print "n =",n
+print "e =",e
+print "c =",c
+```
+
+Output :
+```
+n = 9247606623523847772698953161616455664821867183571218056970099751301682205123115716089486799837447397925308887976775994817175994945760278197527909621793469L
+e = 27587468384672288862881213094354358587433516035212531881921186101712498639965289973292625430363076074737388345935775494312333025500409503290686394032069L
+c = 7117565509436551004326380884878672285722722211683863300406979545670706419248965442464045826652880670654603049188012705474321735863639519103720255725251120L
+```
+
+So, n and e are almost in the same order of length. Maybe it's a coincidence, but this [remember me](https://en.wikipedia.org/wiki/Wiener%27s_attack#Example) the Wiener attack.
+
+Let's check this possibility.
+
+We have to install the owiner module in python3:
+```
 python3 -m pip install owiner
+```
 
-python3
+Then, we run this python3 code:
+
+```python
+#!/usr/bin/python3
 
 import owiener
 
-e1=
-e2=
-e3=
-e4=
-e5=
+e1=11
+e2=41
+e3=67623079903
+e4=5161910578063
+e5=175238643578591220695210061216092361657427152135258210375005373467710731238260448371371798471959129039441888531548193154205671
 e=e1*e2*e3*e4*e5
 n=9247606623523847772698953161616455664821867183571218056970099751301682205123115716089486799837447397925308887976775994817175994945760278197527909621793469
 d = owiener.attack(e, n)
@@ -1683,17 +1729,38 @@ if d is None:
     print("Failed")
 else:
     print("d={}".format(d))
+```
 
-#n=b0915c0eb299cbd5d54d3a5c0dbe04932c6bcdd078cdb3ce1849a620e7196db22c97edfeb731a33aedbdeb28ccbb6533683c0e259d17e0308c48ba72e8d382bd
-#d=80e51c075ffcbe945903af2e1075fb6d
-#e=86d840a79a29eafc30ebb64fc18a6e55a24cf2bdb046dd9cc4271eef471da0c3e145296eb6e9667c2f05fde8d3afbab6803ed6139f8e938c4d07dc358b5fc5
-#c=87e5ef7da5f0104abfdffdf497717b9324bc78f7bfa985b9d662da34ea1c8607cea3a88bb8fdc089bc2266818a00aa0b426ad7ec86056757b4c1b4630aa02a30
+Output :
+```
+d=171330787932846372330977720182288808813
+```
 
-#http://extranet.cryptomathic.com/rsacalc/index
+Youpi ! The attack worked perfectly.
 
-#656173796374667b6b65626c667466747a696261746473716d716f74656d6d74797d
+Knowing the private exponent "d", we can decrypt the message.
+
+It's the first time that I can't decrypt a message using python because of an error. I tried the decryption without or with the PKCS1.5 and it didn't work but I'm sure that I have the correct "d".
+
+So I switched to an [online tool](http://extranet.cryptomathic.com/rsacalc/index) that require (n,e,d,c) in an hexadecimal representation.
+
+That's what you need ? Challenge Accepted.
+
+Using Python, I get what this online tool needs:
+
+* n=b0915c0eb299cbd5d54d3a5c0dbe04932c6bcdd078cdb3ce1849a620e7196db22c97edfeb731a33aedbdeb28ccbb6533683c0e259d17e0308c48ba72e8d382bd
+* d=80e51c075ffcbe945903af2e1075fb6d
+* e=86d840a79a29eafc30ebb64fc18a6e55a24cf2bdb046dd9cc4271eef471da0c3e145296eb6e9667c2f05fde8d3afbab6803ed6139f8e938c4d07dc358b5fc5
+* c=87e5ef7da5f0104abfdffdf497717b9324bc78f7bfa985b9d662da34ea1c8607cea3a88bb8fdc089bc2266818a00aa0b426ad7ec86056757b4c1b4630aa02a30
+
+As a decrypted message (m) I get : m=656173796374667b6b65626c667466747a696261746473716d716f74656d6d74797d
+
+Which is the plain text in the hexadecimal representation.
+
+Using an online tool to convert it from hexadecimal to an ascii string, I get the flag.
 
 So the flag is : `easyctf{keblftftzibatdsqmqotemmty}`
+
 ___
 
 
