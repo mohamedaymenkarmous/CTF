@@ -1,5 +1,5 @@
 <p align="center">
-<img src="images/logo.png"/>
+<img src="logo.png"/>
 </p>
 
 # EasyCTF_V Writeup
@@ -537,6 +537,13 @@ We have to execute this command in your shell terminal to find out the flag:
 ```
 strings hexedit | grep easyctf
 ```
+
+Output :
+```
+easyctf{eb04fadf}
+```
+
+So the flag is : ```easyctf{eb04fadf}```.
 
 ___
 
@@ -1243,6 +1250,334 @@ ___
 ### Write-up
 Task no solved
 ___
+
+
+
+
+## EzReverse
+
+**Category:** Reverse Engineering
+**Points:** 140
+**Description:**
+
+>Take a look at [executable](resources/reverse_engineering-140-ezreverse/executable). Objdump the executable and read some assembly!
+
+**Hint:**
+
+>Time to read a bit of assembly! Did you know that characters are actually just integers? Take a look at an ASCII table for reference.
+
+<p align="center">
+<img src="resources/reverse_engineering-140-ezreverse/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+## Soupstitution Cipher
+
+**Category:** Reverse Engineering
+**Points:** 150
+**Description:**
+
+>We had a flag, but lost it in a mess of alphabet soup! Can you help us [find it](resources/soupstituted.py)?
+>Connect to the server via ```nc c1.easyctf.com 12484```.
+
+**Hint:**
+
+>I love parsing characters!
+
+<p align="center">
+<img src="resources/intro-20-netcat/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+## Digging for Soup
+
+**Category:** Web
+**Points:** 150
+**Description:**
+
+>Perhaps this time I'll have hidden things a little better... you won't find my flag so easily now! ```nicebowlofsoup.com```
+
+**Hint:**
+
+>How do slave zones know when updates are made to the master?
+
+<p align="center">
+<img src="resources/web-150-digging_for_soup/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+## AES
+
+**Category:** Cryptography
+**Points:** 160
+**Description:**
+
+>There's an AES challenge running at ```c1.easyctf.com 12487``` ([source](resources/cryptography-160-aes/aes_redacted.py)).
+
+**Hint:**
+
+>(No hint)
+
+<p align="center">
+<img src="resources/cryptography-160-aes/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+## MalDropper
+
+**Category:** Reverse Engineering
+**Points:** 160
+**Description:**
+
+>Mind looking at this malware dropper I found?
+>[File](resources/reverse_engineering-160-maldropper/maldrop.exe)
+>Note: this isn't actually malware, it just borrows obfuscation techniques from low quality malware.
+
+**Hint:**
+
+>(No hint)
+
+<p align="center">
+<img src="resources/reverse_engineering-160-maldropper/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+## Zipperoni
+
+**Category:** Miscellaneous
+**Points:** 160
+**Description:**
+
+>I've created a dastardly chain of [zip files](resources/miscellaneous-160-zipperoni/zip_files.tar). Now you'll never find my flag!
+>The first file is ```begin.zip```, with password ```coolkarni```.
+>Hint: You need to guess the password of the next zip file. However, the underscores in the pattern appear in the same positions as they do in the actual password, so you don't need to guess them. For example, the first pattern is ```__0_0_```, which means that you need to guess the 3rd and 5th characters.
+
+**Hint:**
+
+>I love writing Python programs, don't you?
+
+<p align="center">
+<img src="resources/miscellaneous-160-zipperoni/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+##
+
+**Category:** Intro
+**Points:** 0
+**Description:**
+
+>
+
+**Hint:**
+
+>(No hint)
+
+<p align="center">
+<img src="resources/intro-20-netcat/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+##
+
+**Category:** Intro
+**Points:** 0
+**Description:**
+
+>
+
+**Hint:**
+
+>(No hint)
+
+<p align="center">
+<img src="resources/intro-20-netcat/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+##
+
+**Category:** Intro
+**Points:** 0
+**Description:**
+
+>
+
+**Hint:**
+
+>(No hint)
+
+<p align="center">
+<img src="resources/intro-20-netcat/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+##
+
+**Category:** Intro
+**Points:** 0
+**Description:**
+
+>
+
+**Hint:**
+
+>(No hint)
+
+<p align="center">
+<img src="resources/intro-20-netcat/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+##
+
+**Category:** Intro
+**Points:** 0
+**Description:**
+
+>
+
+**Hint:**
+
+>(No hint)
+
+<p align="center">
+<img src="resources/intro-20-netcat/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+##
+
+**Category:** Intro
+**Points:** 0
+**Description:**
+
+>
+
+**Hint:**
+
+>(No hint)
+
+<p align="center">
+<img src="resources/intro-20-netcat/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+##
+
+**Category:** Intro
+**Points:** 0
+**Description:**
+
+>
+
+**Hint:**
+
+>(No hint)
+
+<p align="center">
+<img src="resources/intro-20-netcat/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
+
+
+
+##
+
+**Category:** Intro
+**Points:** 0
+**Description:**
+
+>
+
+**Hint:**
+
+>(No hint)
+
+<p align="center">
+<img src="resources/intro-20-netcat/_description.PNG"/>
+</p>
+
+### Write-up
+Task no solved
+___
+
 
 
 
