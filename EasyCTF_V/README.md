@@ -404,9 +404,21 @@ ___
 </p>
 
 ### Write-up
-We have to reverse that cipher text. So we need to add just a line to the python file:
+We have to reverse that cipher text. So we need to add just one line to the python file:
 ```
+#!/usr/bin/env python3
+import binascii
+key = "graAhogG"
+flag="6513c2b1c2bac3835f0cc28a5b6ac2abc2b9c2bfc381c39b7613c3bac2b3c2a17f7ac29f00c3aa46c2b9c2a6"
+def mystery(s):
+    r = ""
+    # Adding this line
+    **t = binascii.unhexlify(s).decode("utf-8")**
+    for i, c in enumerate(t):
+        r += chr(ord(c) ^ ((i * ord(key[i % len(key)])) % 256))
+    return bytes(r, "utf-8")
 
+**print(mystery(flag))**
 ```
 
 Then, we run it:
@@ -417,10 +429,10 @@ chmod +x solution
 
 Output:
 ```
-
+b'easyctf{char_by_char_aEaBdc}'
 ```
 
-So the flag is : ``````.
+So the flag is : ```easyctf{char_by_char_aEaBdc}```.
 
 ___
 
@@ -450,8 +462,17 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+The best solution was provided by the original write-up: [here](https://github.com/EasyCTF/easyctf-iv-problems/blob/master/prog_input/grader.py):
+```python
+#Original EasyCTF_V write-up
+name = input()
+print("Hello, {}!".format(name))
+```
+
 ___
+
+
+
 
 
 
@@ -480,8 +501,17 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+The best solution was provided by the original write-up: [here](https://github.com/EasyCTF/easyctf-iv-problems/blob/master/prog_loop/grader.py):
+```python
+#Original EasyCTF_V write-up
+n = int(input())
+print(" and ".join(["over"] * n))
+```
+
 ___
+
+
+
 
 
 
@@ -502,8 +532,14 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+We have to execute this command in your shell terminal to find out the flag:
+```
+strings hexedit
+```
+
 ___
+
+
 
 
 
@@ -524,8 +560,25 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+The cipher text is encrypted with the Substitution cipher.
+
+So we have to break it using any tool solver.
+
+We used this [online tool](https://www.guballa.de/substitution-solver).
+
+The key found was : ```aywmcnopjqrstxihbdlegzukfv```.
+
+And then, the plain text was:
+```
+YO! NICEBOWLOFSOUP JUST MADE A NEW FLAG FOR THE CTF AND IS TOTALLY PROUD OF ITS INGENUITY. THIS IS ALSO THE SECOND PROBLEM EVER MADE FOR EASYCTF. HERE: EASYCTF{THIS_IS_AN_EASY_FLAG_TO_GUESS} USE CAPITAL LETTERS.
+
+```
+
+So the flag is : ```EASYCTF{THIS_IS_AN_EASY_FLAG_TO_GUESS}```.
+
 ___
+
+
 
 
 
@@ -546,7 +599,23 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+We have to connect to the remote server as explained in the [Intro : Linux](#intro-linux) task, and we have to execute this command to change the current working directory to the ```/problems/markovs_bees/``` directory:
+```
+cd /problems/markovs_bees/
+```
+
+Then, we search inside of all the files located (in the current directory or the sub-directories), the flag as we know that all the flag starts with "easyctf{":
+```
+grep -R "easyctf" .
+```
+
+Output :
+```
+bees/c/e/i/bee913.txt:easyctf{grepping_stale_memes_is_fun}
+```
+
+So, the flag is : ```easyctf{grepping_stale_memes_is_fun}```
+
 ___
 
 
