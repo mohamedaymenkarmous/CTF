@@ -683,8 +683,8 @@ So the single-byte key in hexadecimal representation is ```7d```.
 
 Now, we can decrypt the cipher text using this key (repeated with the cipher text length) and we convert the hexadecimal plain text result to an ascii string plain text :
 
->complete cipher text = 181c0e041e091b06050a13090c0b0b120c0f070d071f131707110e1513170c0f1200
->repeated key         = 7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d
+> complete cipher text = 181c0e041e091b06050a13090c0b0b120c0f070d071f131707110e1513170c0f1200
+> repeated key         = 7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d
 
 ```
 printf '%#x\n' "$((0x181c0e041e091b06050a13090c0b0b120c0f070d071f131707110e1513170c0f1200 ^ 0x7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d))" | xxd -r -p
