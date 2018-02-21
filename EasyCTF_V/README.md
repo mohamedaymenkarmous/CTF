@@ -817,6 +817,8 @@ ___
 
 
 
+
+
 ## Adder
 
 **Category:** Reverse Engineering
@@ -835,7 +837,10 @@ ___
 
 ### Write-up
 Task no solved
+
 ___
+
+
 
 
 
@@ -857,7 +862,10 @@ ___
 
 ### Write-up
 Task no solved
+
 ___
+
+
 
 
 
@@ -884,6 +892,8 @@ ___
 
 
 
+
+
 ## Zippity
 
 **Category:** Miscellaneous
@@ -906,6 +916,8 @@ ___
 
 
 
+
+
 ## Starman 1
 
 **Category:** Programming
@@ -913,21 +925,37 @@ ___
 **Description:**
 
 >Starman has taken off in search of a team to help him win EasyCTF! He's reached the asteroid belt, which everyone knows is the best place in the galaxy to find cybersecurity talent. Each asteroid is home to one superstar hacker. Starman wants to take all of the hackers back to Earth to help him with the competition, but unfortunately this isn't practical - all of the hackers are very attached to their asteroid homes, and won't go back to Earth unless Starman agrees to take the asteroids with him. Furthermore, each hacker has a skill rating r. To ensure a win in EasyCTF, Starman wants to maximize the sum of the rating values of his team members.
+
 >There are N hackers, and Starman's Roadster can carry up to W pounds of additional weight. Help him decide which hackers to bring home.
+
 >**Input Format**
+
 >The first line contains two integers N and W. The following N lines each contain two integers r_i and w_i, representing the skill and weight of the ith hacker. (w_i is the sum of a hacker and their asteroid's weight).
+
 >```1 <= N, W <= 2000```
+
 >```1 <= r_i, w_i <= 10000```
+
 >**Output Format**
+
 >A single integer, the best sum-of-ratings Starman can achieve while keeping the total weight added to his Roadster less than or equal to W.
+
 >**Sample Input**
+
 > * ```5 15```
+
 > * ```6 7```
+
 > * ```3 4```
+
 > * ```3 5```
+
 > * ```10 11```
+
 > * ```8 8```
+
 >**Sample Ouput**
+
 > * ```14```
 
 **Hint:**
@@ -939,8 +967,38 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+This task illustrate the Knapsack_problem
+The best solution was provided by the original write-up: [here](https://github.com/EasyCTF/easyctf-iv-problems/blob/master/starman_1/grader.py):
+```python
+#Original EasyCTF_V write-up
+import sys
+sys.setrecursionlimit(5000)
+
+N, W = map(int, input().split())
+
+dat = [list(map(int, input().split())) for i in range(N)]
+
+memo = [[-1] * (W + 1) for i in range(N)]
+
+# https://en.wikipedia.org/wiki/Knapsack_problem
+
+def ans(ind, wr):
+    if ind == N:
+        return 0
+    if memo[ind][wr] != -1:
+        return memo[ind][wr]
+    best = ans(ind + 1, wr)
+    if dat[ind][1] <= wr:
+        best = max(best, dat[ind][0] + ans(ind + 1, wr - dat[ind][1]))
+    memo[ind][wr] = best
+    return best
+
+print(ans(0, W))
+```
+
 ___
+
+
 
 
 
