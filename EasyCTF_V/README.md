@@ -777,11 +777,11 @@ ___
 >Dig around and see what you can find
 
 <p align="center">
-<img src="resources/web-in-plain-sight/_description.PNG"/>
+<img src="resources/web-70-in_plain_sight/_description.PNG"/>
 </p>
 
 ### Write-up
-The domain name `````` is not accessible in the browser. And considering the note and the hint, it may be a dns task.
+The domain name ```blockingthesky.com``` is not accessible in the browser. And considering the note and the hint, it may be a dns task.
 
 But in the DNS records, the record in which we can hide a flag is the TXT record.
 
