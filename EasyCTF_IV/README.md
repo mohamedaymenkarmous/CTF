@@ -1660,13 +1660,7 @@ ___
 </p>
 
 ### Write-up
-After Bob obtains Alice's public key, he can send a message {{mvar|M}} to Alice.
-
-To do it, he first turns {{mvar|M}} (strictly speaking, the un-padded plaintext) into an integer {{mvar|m}} (strictly speaking, the padded plaintext), such that {{math|0 ≤ ''m'' < ''n''}} by using an agreed-upon reversible protocol known as a [[#Padding schemes|padding scheme]]. He then computes the ciphertext {{mvar|c}}, using Alice's public key {{mvar|e}}, corresponding to
-
-: <math> c \equiv m^e \pmod{n} </math>
-
-This can be done reasonably quickly, even for 500-bit numbers, using modular exponentiation. Bob then transmits {{mvar|c}} to Alice.
+{\displaystyle (m^{e})^{d}\equiv m{\pmod {n}}}
 
 python3 -m pip install owiner
 
