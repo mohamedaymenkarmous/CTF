@@ -663,11 +663,11 @@ Output :
 
 Now we have to xor the same length of the cipher text and the plain text starting from the first position.
 
->old cipher text = 181c0e041e091b06050a13090c0b0b120c0f070d071f131707110e1513170c0f1200
->old plain text  = 656173796374667B
+* old cipher text = 181c0e041e091b06050a13090c0b0b120c0f070d071f131707110e1513170c0f1200
+* old plain text  = 656173796374667B
 
->new cipher text = 181c0e041e091b06
->new plain text  = 656173796374667B
+* new cipher text = 181c0e041e091b06
+* new plain text  = 656173796374667B
 
 Using an online xor tool we can apply the xor. Otherwise, in the shell terminal we execute :
 ```
