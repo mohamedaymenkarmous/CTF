@@ -343,7 +343,7 @@ If you can't see the flag, just you have to change the file extension to .png.
 
 Why .png extension ? Just run the command ```file flag.txt``` to know the type of file from the header bytes.
 
-So the flag is : ```easyctf{FLaaaGGGGGg}```
+So the flag is : ```easyctf{FLaaaGGGGGg}```.
 
 ___
 
@@ -368,8 +368,21 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+We have to run this command to extract the flag from image source code:
+```
+strings soupculents.jpg
+```
+We can find the flag in the output:
+
+<p align="center">
+<img src="resources/forensics-30-ezsteg/_2.PNG"/>
+</p>
+
+So the flag is ```easyctf{l00k_at_fil3_sigS}```.
+
 ___
+
+
 
 
 
@@ -391,8 +404,27 @@ ___
 </p>
 
 ### Write-up
-Task no solved
+We have to reverse that cipher text. So we need to add just a line to the python file:
+```
+
+```
+
+Then, we run it:
+```
+chmod +x solution
+./solution
+```
+
+Output:
+```
+
+```
+
+So the flag is : ``````.
+
 ___
+
+
 
 
 
