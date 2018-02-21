@@ -113,6 +113,8 @@ We try to brute force it 26 times and we can easily find the flag in 19th rotati
 So the flag is: ```easyctf{w3lc0m3_70_345yc7f_799a21}```
 ___
 
+
+
 ## Intro: Web
 
 **Category:** Intro
@@ -164,7 +166,7 @@ ___
 ### Write-up
 It looks like a hex code.
 Decoding it from hex to ascii, the plain text is: hexit_mate_428e3e58b7eb4ccb2c46
-So the flag is: easyctf{hexit_mate_428e3e58b7eb4ccb2c46}
+So the flag is: ```easyctf{hexit_mate_428e3e58b7eb4ccb2c46}```
 ___
 
 ## Intro: Netcat
@@ -202,12 +204,14 @@ ___
 >Try searching the web to find out what SHA-512 is.
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/miscellaneous-20-hashing/_description.PNG"/>
 </p>
 
 ### Write-up
 Task no solved
 ___
+
+
 
 ## Programming: Exclusive
 
@@ -223,7 +227,7 @@ ___
 >(No hint)
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/programming-20-exclusive/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -267,7 +271,7 @@ ___
 >What is this file?
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/forensics-30-look_at_flag/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -312,7 +316,7 @@ ___
 >(No hint)
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/intro-30-reverse_engineering/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -339,7 +343,7 @@ ___
 >(No hint)
 
 <p align="center">
-<img src="resources/programming-30-taking-input/_description.PNG"/>
+<img src="resources/programming-30-taking_input/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -369,7 +373,7 @@ ___
 >(No hint)
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/programming-40-over_and_over/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -491,7 +495,7 @@ ___
 >(No hint)
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/programming-55-subset_counting/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -538,7 +542,7 @@ ___
 >Dig around and see what you can find
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/web-in-plain-sight/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -605,7 +609,7 @@ ___
 >Did you know that Chrome Developer Tools has a Network tab?
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/web-80-nosource_jr/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -627,7 +631,7 @@ ___
 >I wonder if you could write a program...
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/miscellaneous-80-zippity/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -665,7 +669,7 @@ ___
 >If you run into issues with the time limit, try reading up on Dynamic Programming.
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/programming-80-starman_1/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -710,7 +714,7 @@ ___
 >I think there's something about cribs in there...
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/cryptography-100-not_otp/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -779,204 +783,6 @@ ___
 
 <p align="center">
 <img src="resources/forensics-130-remember_me/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
-</p>
-
-### Write-up
-Task no solved
-___
-
-
-
-##
-
-**Category:** Intro
-**Points:** 0
-**Description:**
-
->
-
-**Hint:**
-
->(No hint)
-
-<p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
 </p>
 
 ### Write-up
