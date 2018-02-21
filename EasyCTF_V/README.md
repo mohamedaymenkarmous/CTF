@@ -370,7 +370,7 @@ ___
 ### Write-up
 We have to run this command to extract the flag from image source code:
 ```
-strings soupculents.jpg
+strings soupculents.jpg | grep easyctf
 ```
 We can find the flag in the output:
 
@@ -413,12 +413,13 @@ flag="6513c2b1c2bac3835f0cc28a5b6ac2abc2b9c2bfc381c39b7613c3bac2b3c2a17f7ac29f00
 def mystery(s):
     r = ""
     # Adding this line
-    **t = binascii.unhexlify(s).decode("utf-8")**
+    t = binascii.unhexlify(s).decode("utf-8")
     for i, c in enumerate(t):
         r += chr(ord(c) ^ ((i * ord(key[i % len(key)])) % 256))
     return bytes(r, "utf-8")
 
-**print(mystery(flag))**
+#And this one
+print(mystery(flag))
 ```
 
 Then, we run it:
@@ -497,7 +498,7 @@ ___
 >(No hint)
 
 <p align="center">
-<img src="resources/programming-40-over_and_over/_description.PNG"/>
+<img src="resources/forensics-30-ezsteg/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -534,7 +535,7 @@ ___
 ### Write-up
 We have to execute this command in your shell terminal to find out the flag:
 ```
-strings hexedit
+strings hexedit | grep easyctf
 ```
 
 ___
@@ -571,7 +572,6 @@ The key found was : ```aywmcnopjqrstxihbdlegzukfv```.
 And then, the plain text was:
 ```
 YO! NICEBOWLOFSOUP JUST MADE A NEW FLAG FOR THE CTF AND IS TOTALLY PROUD OF ITS INGENUITY. THIS IS ALSO THE SECOND PROBLEM EVER MADE FOR EASYCTF. HERE: EASYCTF{THIS_IS_AN_EASY_FLAG_TO_GUESS} USE CAPITAL LETTERS.
-
 ```
 
 So the flag is : ```EASYCTF{THIS_IS_AN_EASY_FLAG_TO_GUESS}```.
@@ -637,8 +637,67 @@ ___
 </p>
 
 ### Write-up
+We have to find the single-byte used to encrypt the plain text.
+
+But, we know that the flag starts with ```easyctf{```. And we know the xor is a symetric cipher. So encrypting the cipher text with the plain text, we can find the key. We only need to know the single-byte key.
+
+So let's print the file to the hexadecimal representation:
+```bash
+xxd -p xor.txt | tr -d "\n"
+```
+
+Output:
+```
+181c0e041e091b06050a13090c0b0b120c0f070d071f131707110e1513170c0f1200
+```
+
+The hexadecimal representation of ```easyctf{``` is:
+```
+echo -n "easyctf{" |xxd -p -u
+```
+
+Output :
+```
+656173796374667B
+```
+
+Now we have to xor the same length of the cipher text and the plain text starting from the first position.
+
+>old cipher text = 181c0e041e091b06050a13090c0b0b120c0f070d071f131707110e1513170c0f1200
+>old plain text  = 656173796374667B
+
+>new cipher text = 181c0e041e091b06
+>new plain text  = 656173796374667B
+
+Using an online xor tool we can apply the xor. Otherwise, in the shell terminal we execute :
+```
+printf '%#x\n' "$((0x181c0e041e091b06 ^ 0x656173796374667b))"
+```
+
+Output :
+```
+0x7d7d7d7d7d7d7d7d
+```
+
+So the single-byte key in hexadecimal representation is ```7d```.
+
+Now, we can decrypt the cipher text using this key (repeated with the cipher text length) and we convert the hexadecimal plain text result to an ascii string plain text :
+>complete cipher text = 181c0e041e091b06050a13090c0b0b120c0f070d071f131707110e1513170c0f1200
+>repeated key         = 7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d
+```
+printf '%#x\n' "$((0x181c0e041e091b06050a13090c0b0b120c0f070d071f131707110e1513170c0f1200 ^ 0x7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d))" | xxd -r -p
+```
+
+Output :
+```
+easyctf{xwntqvvoqrzpzbnjzlshnjqro}
+```
+
+So the flag is : ```easyctf{xwntqvvoqrzpzbnjzlshnjqro}```.
 
 ___
+
+
 
 
 
