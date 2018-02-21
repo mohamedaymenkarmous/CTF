@@ -20,6 +20,10 @@ This repository serves as a writeup for EasyCTF_V solved by TheEmperors's team
 
 >If you're not sure how to do this, try searching Google for how to make "Hello world!" programs in your language of choice.
 
+<p align="center">
+<img src="resources/intro-10-hello_world/_description.PNG"/>
+</p>
+
 ### Write-up
 Using Python2
 
@@ -27,6 +31,8 @@ Using Python2
 print "Hello world!"
 ```
 ___
+
+
 
 ## Intro: Linux
 
@@ -41,11 +47,15 @@ ___
 
 >(no hint)
 
+<p align="center">
+<img src="resources/intro-10-linux/_description.PNG"/>
+</p>
+
 ### Write-up
 We should visit the [Shell Server](https://www.easyctf.com/chals/shell) section and connect to the remote server using our credentials or we just need to execute this command in a linux terminal:
 
 ```
-ssh user44595@s.easyctf.com
+ssh user666@s.easyctf.com
 ```
 
 Then, we execute this command to list all the files located on our home directory:
@@ -73,9 +83,11 @@ user666@shell:~$ cat .flag
 easyctf{i_know_how_2_find_hidden_files!}
 ```
 
-So the flag is : easyctf{i_know_how_2_find_hidden_files!}
+So the flag is : ```easyctf{i_know_how_2_find_hidden_files!}```
 
 ___
+
+
 
 ## The Oldest Trick in the Book
 
@@ -84,17 +96,21 @@ ___
 **Description:**
 
 >This is literally one of oldest tricks in the book. To be precise, from the year AD 56.
->Crack me. lhzfjam{d3sj0t3_70_345fj7m_799h21}
+>Crack me. ```lhzfjam{d3sj0t3_70_345fj7m_799h21}```
 
 **Hint:**
 
 >Et tu, Brute?
 
+<p align="center">
+<img src="resources/intro-10-the_oldest_trick_in_the_book/_description.PNG"/>
+</p>
+
 ### Write-up
 The flag format is easyctf{...} and we can see lhzfjam{...}. So it may be a caesar cipher.
 We try to brute force it 26 times and we can easily find the flag in 19th rotation.
 
-So the flag is: easyctf{w3lc0m3_70_345yc7f_799a21}
+So the flag is: ```easyctf{w3lc0m3_70_345yc7f_799a21}```
 ___
 
 ## Intro: Web
@@ -105,21 +121,29 @@ ___
 
 >The web goes well beyond the surface of the browser! Warm up your web-sleuthing skills with this challenge by finding the hidden flag on [this page](https://cdn.easyctf.com/328f49c7ab7b65a75c9e274f066435c6fe7fb0f207172a82da971348a7f05aec_index.html)!
 
+Source code of this task: [here](resources/intro-10-web/index.html)
+
 **Hint:**
 
 >Not sure where to look? Try looking up 'source code', specifically related to web pages.
 
+<p align="center">
+<img src="resources/intro-10-web/_description.PNG"/>
+</p>
+
 ### Write-up
 In this task the flag is not visible in the page:
 <p align="center">
-<img src="images/intro-web_1.PNG"/>
+<img src="resources/intro-10-web/1.PNG"/>
 </p>
 So we inspect the source code :
 <p align="center">
-<img src="images/intro-web_2.PNG"/>
+<img src="resources/intro-10-web/2.PNG"/>
 </p>
-And there we find the flag : easyctf{hidden_from_the_masses_11a8b2}
+And there we find the flag : ```easyctf{hidden_from_the_masses_11a8b2}```
 ___
+
+
 
 ## Soupreme Encoder
 
