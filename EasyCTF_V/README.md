@@ -197,7 +197,7 @@ ___
 **Points:** 20
 **Description:**
 
->Cryptographic hashes are pretty cool! Take the SHA-512 hash of [this file](resources/intro-20-hashing/image.png), and submit it as your flag.
+>Cryptographic hashes are pretty cool! Take the SHA-512 hash of [this file](resources/miscellaneous-20-hashing/image.png), and submit it as your flag.
 
 **Hint:**
 
