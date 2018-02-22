@@ -1837,7 +1837,7 @@ ___
 >(No hint)
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/binary_exploitation-160-format/_description.PNG"/>
 </p>
 
 ### Write-up
@@ -2212,7 +2212,7 @@ ___
 >(No hint)
 
 <p align="center">
-<img src="resources/intro-20-netcat/_description.PNG"/>
+<img src="resources/binary_exploitation-350-fanfic_studio/_description.PNG"/>
 </p>
 
 ### Write-up
