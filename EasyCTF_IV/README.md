@@ -1678,7 +1678,147 @@ ___
 </p>
 
 ### Write-up
-Task not solved
+We have to extract many password protected zip files buy guessing its passwords based on the patterns to get the flag.
+
+So we start by downloading the first [tar file](resources/miscellaneous-160-zipperoni/zip_files.tar) which contains all the password protected zip files.
+
+Then, we execute these commands to extract the zip files:
+```
+tar zip_files.tar -xvf
+cd zip_file
+```
+
+Next, we start coding the [Python script](resources/miscellaneous-160-zipperoni/solution.py) :
+
+```python
+#!/usr/bin/python
+
+from zipfile import ZipFile
+import re
+import time
+import hashlib
+
+def get_pattern():
+  file3=open("pattern.txt","r")
+  pattern=file3.read().strip()
+  file3.close()
+  return pattern
+
+def get_hash():
+  file3=open("hash.txt","r")
+  pattern=file3.read().strip()
+  file3.close()
+  return pattern
+
+
+def recursive(R,S,password,filename1,pattern):
+  reg=""
+  if S[0]=='0':
+    reg="0123456789"
+  elif S[0]=='a':
+    reg="abcdefghijklmnopqrstuvwxyz"
+  elif S[0]=='A':
+    reg="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  else:
+    exit()
+  for i in list(reg):
+   if get_pattern()==pattern:
+    if len(R)==1:
+      try:
+          zf=ZipFile(filename1)
+          old=list(password)
+          old[R[0]]=i
+          password="".join(old)
+          #print password #,filename1,hashlib.sha1(password).hexdigest()
+          if get_hash()==hashlib.sha1(password).hexdigest():
+            zf.extractall(pwd=password)
+            print "First password:",password,"for file:",filename1
+      except RuntimeError:
+        nop=1
+    else:
+      old=list(password)
+      old[R[0]]=i
+      password="".join(old)
+      recursive(R[1:],S[1:],password,filename1,pattern)
+   else:
+    break
+
+zf=ZipFile("begin.zip")
+zf.extractall(pwd="coolkarni")
+
+# We have to stop this script manually when this script loops on cracking the password of the same zip file (last file)
+while 1:
+ file1=open("filename.txt","r")
+ filename=file1.read().strip()
+ file1.close()
+ found=re.search('zip_files/(.*)',filename)
+ if found is not None:
+  file2=found.group(1).strip()
+  pattern=get_pattern()
+  hash=get_hash()
+  R=[]
+  S=[]
+  T=list(pattern)
+  for i in range(len(T)):
+    if T[i]!='_':
+      R.append(i)
+      S.append(T[i])
+  #print R,S
+  recursive(R,S,pattern,file2,pattern)
+```
+
+And, we run it:
+```
+chmod +x solution.py
+./solution.py
+```
+
+Output :
+```
+First password: __1_8_ for file: a6e38c166399.zip
+First password: 171__5 for file: b7fb9ad28cfa.zip
+First password: 2_662_ for file: 8acaef3b63cb.zip
+First password: _8____ for file: 9dea7ddf151c.zip
+First password: Ob2_1C for file: 1ba1e20a1fa3.zip
+First password: xE_677 for file: 3f0e8b8ab37e.zip
+First password: _4y6gO for file: 750d95fb57bc.zip
+First password: k__6bT for file: 68a27e4f8f65.zip
+First password: le5_G_ for file: 6a9e93579c2c.zip
+First password: 7_R_tb for file: 1e9af31fa599.zip
+First password: f_v222 for file: e46a39dbc7a7.zip
+First password: w8bs__ for file: d71d7308dc2c.zip
+First password: cFy88_ for file: 3c1f7f6a89bd.zip
+First password: 9_u4Mf for file: 78fb0273a8ca.zip
+First password: _y5_y_ for file: cce8171583ab.zip
+First password: 12O_4e for file: 2c114c46202e.zip
+First password: H_pG__ for file: 7069030ba353.zip
+First password: _3b__X for file: 88111d2184a7.zip
+First password: F_PaeL for file: 94138b51c250.zip
+First password: 9h12__ for file: ba003ac880f3.zip
+First password: 1IbLE_ for file: f7cd9013ab05.zip
+First password: _so58F for file: e15074fdf6f4.zip
+First password: QP8_2_ for file: 29a43d087f69.zip
+First password: LK2i4_ for file: 2dc5f26394d2.zip
+First password: _46rW9 for file: 7c35b1ca627e.zip
+First password: _46rW9 for file: 7c35b1ca627e.zip
+```
+
+As we can see, the last line is dupplicated. Maybe the last password protected zip file was extracted.
+
+We find that there is a new file called flag.txt
+
+So we print it:
+```
+cat flag.txt
+```
+
+Output :
+```
+easyctf{you_must_REALLY_luv_zip_files_by_now!}
+```
+
+So the flag is : ```easyctf{you_must_REALLY_luv_zip_files_by_now!}```.
+
 ___
 
 
