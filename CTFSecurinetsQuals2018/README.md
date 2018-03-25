@@ -360,3 +360,5 @@ Detailed :
 <img src="scoreboard/9.PNG"/>
 </p>
 
+If you need the Json file of the scoreboard, you can find it [scoreboard/jsonAdvanced.json](here)
+
