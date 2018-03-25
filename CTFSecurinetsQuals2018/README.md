@@ -23,7 +23,7 @@ This repository serves as a writeup for CTFSecurinets Quals 2018
 </p>
 
 ### Write-up
-You have to join the IRC channel by clicking the IRC tab and then connecting to the [https://www.ctfsecurinets.com/irc](#ctf_securinets channel) to find the flag in the description.
+You have to join the IRC channel by clicking the IRC tab and then connecting to the [#ctf_securinets channel](https://www.ctfsecurinets.com/irc) to find the flag in the description.
 <p align="center">
 <img src="resources/misc-50-irc/1.PNG"/>
 </p>
@@ -138,7 +138,7 @@ ___
 **Description:**
 
 >The Emperors heard that the biggest weakness of RSA is when the attacker try to factorize the public modulous. That's why they ordered their security team to create pair keys using a single strong (big) prime modulous. Then, they started sending the first secret information. Given the public key and the ciphertext, can you decrypt the message ?
->Link : [resources/crypto-350-the_worst_rsa_joke/RSA_Worst_Joke.tar.gz](http://crypto.ctfsecurinets.com/2/RSA_Worst_Joke.tar.gz)
+>Link : [http://crypto.ctfsecurinets.com/2/RSA_Worst_Joke.tar.gz](resources/crypto-350-the_worst_rsa_joke/RSA_Worst_Joke.tar.gz)
 
 **Hint:**
 
@@ -245,7 +245,7 @@ ___
 **Description:**
 
 >Can you help me recover the picture ?
->Link : [resources/crypto-150-looser/flag.png.crypt](http://crypto.ctfsecurinets.com/0/flag.png.crypt)
+>Link : [http://crypto.ctfsecurinets.com/0/flag.png.crypt](resources/crypto-150-looser/flag.png.crypt)
 
 **Hint:**
 
@@ -274,7 +274,7 @@ Output:
 
 This means, the first line may be the same in PNG files.
 
-Let's create [resources/crypto-150-looser/key_extract.sh](a script that extract the xor key from the first line of an encrypted file and a normal file) (out of this task)
+Let's create [a script that extract the xor key from the first line of an encrypted file and a normal file](resources/crypto-150-looser/key_extract.sh) (out of this task)
 
 ```
 chmod +x key_extract.sh
@@ -289,7 +289,7 @@ eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeec3aeeeeed34eeeeeeeeee62
 
 This is the hexadecimal representation of the key. It seems like the key is ```0xee```.
 
-So let's decrypt the flag file right now [resources/crypto-150-looser/solve.sh](using this script) :
+So let's decrypt the flag file right now [using this script](resources/crypto-150-looser/solve.sh) :
 
 ```
 chmod +x solve.sh
