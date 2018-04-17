@@ -5,7 +5,7 @@
 # CTFSecurinets Quals 2018 Writeup
 This repository serves as a writeup for CTFSecurinets Final 2018
 
-## Memcached SASL
+## SASL Memcached
 
 **Category:** Web
 **Points:** 299
@@ -20,13 +20,13 @@ Link : http://192.168.1.101/
 > The Emperors said that keys stored in the Memcached server are an incremented integer
 
 <p align="center">
-<img src="resources/web-299-memcached_sasl/_description.PNG"/>
+<img src="resources/web-299-sasl_memcached/_description.PNG"/>
 </p>
 
 ### Write-up
 When visiting the link of the web application, we find out an authentication form :
 <p align="center">
-<img src="resources/web-299-memcached_sasl/1.PNG"/>
+<img src="resources/web-299-sasl_memcached/1.PNG"/>
 </p>
 
 After reading the description, it seems that there is no way to bypass authentication without searching the credentials from the memcached server.
