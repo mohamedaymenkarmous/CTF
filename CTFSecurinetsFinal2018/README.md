@@ -13,7 +13,7 @@ This repository serves as a writeup for CTFSecurinets Final 2018
 **Description:**
 
 > The Emperor worked in the development of a website in which, authenticated sessions should be logged in a cache server. So he developped this feature in a Memcached server. And to prevend anyone to connect to the Memcached server, he enabled the SASL authentication in the Memcached server. After he finished the development of this feature, The Emperor was fired from this team to another one in the same enterprise. The Emperor wanted to make a revenge on his chief. The Emperor remembred that he own only the memcached credentials and he want to get the admin credentials of the website. Can you help him to successfully authenticate using the admin credentials ? "SASL login=SASL password=securinets_SAAASLLL_hahaha_ok_Xd"
-Link : http://192.168.1.101/
+> Link : http://192.168.1.101/
 
 **Hint:**
 
