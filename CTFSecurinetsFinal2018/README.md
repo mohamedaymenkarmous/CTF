@@ -119,6 +119,8 @@ Congratulations ! your flag is Flag{Y0_M3mc4cH3d_W1tH_S4SL_4r3_h3LL_xD}
 
 So the flag is : ```Flag{Y0_M3mc4cH3d_W1tH_S4SL_4r3_h3LL_xD}```.
 
+For more information how to authenticate to memcached using SASL credentials in all programming language, you can find [here more details](https://devcenter.heroku.com/articles/memcachier).
+
 ___
 
 
