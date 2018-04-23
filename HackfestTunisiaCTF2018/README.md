@@ -110,57 +110,6 @@ What do you want to do?
 [2] Login
 Enter your choice: Enter your token: Invalid Token!
 Closing connection.
-What do you want to do?
-[1] Register
-[2] Login
-Enter your choice: Enter your token: Invalid Token!
-Closing connection.
-What do you want to do?
-[1] Register
-[2] Login
-Enter your choice: Enter your token: Invalid Token!
-Closing connection.
-What do you want to do?
-[1] Register
-[2] Login
-Enter your choice: Enter your token: Invalid Token!
-Closing connection.
-What do you want to do?
-[1] Register
-[2] Login
-Enter your choice: Enter your token: Invalid Token!
-Closing connection.
-What do you want to do?
-[1] Register
-[2] Login
-Enter your choice: Enter your token: Invalid Token!
-Closing connection.
-What do you want to do?
-[1] Register
-[2] Login
-Enter your choice: Enter your token: Invalid Token!
-Closing connection.
-What do you want to do?
-[1] Register
-[2] Login
-Enter your choice: Enter your token: Invalid Token!
-Closing connection.
-What do you want to do?
-[1] Register
-[2] Login
-Enter your choice: Enter your token: Invalid Token!
-Closing connection.
-Cloning into 'hlextend'...
-remote: Counting objects: 11, done.
-remote: Compressing objects: 100% (8/8), done.
-Unpacking objects: 100% (11/11), done.
-remote: Total 11 (delta 3), reused 11 (delta 3), pack-reused 0
-Checking connectivity... done.
-What do you want to do?
-[1] Register
-[2] Login
-Enter your choice: Enter your token: Invalid Token!
-Closing connection.
 
 ... (repeated output of invalid token)
 
