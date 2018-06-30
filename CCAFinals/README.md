@@ -5,7 +5,7 @@
 # Carthage Cyber Arena Finals 2018 Writeup
 This repository serves as a writeup for Carthage Cyber Arena Finals which are solved by The Emperors team
 
-## Crypto 1
+## Sockpuppet
 
 **Category:** Forensics
 **Points:** 4
