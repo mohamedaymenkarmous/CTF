@@ -12,27 +12,40 @@ This repository serves as a writeup for Carthage Cyber Arena Finals which are so
 **Description:**
 
 >Our twitter account manager received threatening direct messages from one of our follower, he did not answer or repport the issue until we found him dead in his car. The account was unactive for days, and appears to represent a fake identity.
+
 >We belive you can help the authorities to  solve  this  case. By crawling the twitter account we found two tweets  linking our website. We provide you the  links  and  our  website  log  file during these tweets dates. We expect you to provide us with  the suspected ip address signature along with the latest timestamp.
+
 >Example: CCA{307254cdb562c5e55a54a32d3078fca2-1262389554273517}
+
 >* TWEET#1
->  > DATETIME: 2010-01-01T09:19:48.324566
->  > HOST: 7bcf4a5537c0191a69cb51f8319938e7.host
->  > PATH: 40a23d02813a2feb174b43a9a9dbc423.path
+
+>  DATETIME: 2010-01-01T09:19:48.324566
+
+>  HOST: 7bcf4a5537c0191a69cb51f8319938e7.host
+
+>  PATH: 40a23d02813a2feb174b43a9a9dbc423.path
+
 >* TWEET#2
->  > DATETIME: 2010-01-01T16:12:10.430003
->  > HOST: 7bcf4a5537c0191a69cb51f8319938e7.host
->  > PATH: f2bbb5b05a7b92b1d41cfa7716c3e810.path
+
+>  DATETIME: 2010-01-01T16:12:10.430003
+
+>  HOST: 7bcf4a5537c0191a69cb51f8319938e7.host
+
+>  PATH: f2bbb5b05a7b92b1d41cfa7716c3e810.path
+
 >* LOG FILE
->  > http://192.168.1.10/files/b927377ace8e757c1f7350436d329be813c1d873824c0666f514af1c4e8aa3d6-sockpuppet.7z
+
+>  [sockpuppet.7z](resources/forensics-4-sockpuppet/sockpuppet.7z)
+
 >Notice
+
 > - SOME CRITICAL INFORMATIONS ARE SIGNED USING MD5HMAC
+
 >   AND PADDED WITH A DOT THAN THE DATA CATEGORY.
+
 > - ALL DATES ARE SHIFTED TO UTC TIME ZONE
 
 
-<p align="center">
-<img src="resources/forensics-4-sockpuppet/_description.PNG"/>
-</p>
 
 ### Write-up
 In this task, we have to find which ip visit the website through the host, the path1 and the path2 as described in the description.
