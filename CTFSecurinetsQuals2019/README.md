@@ -739,5 +739,5 @@ And, this is the scoreboard and the rankin for the 100/436 teams that they solve
 <img src="scoreboard/9.PNG"/>
 </p>
 
-If you need the Json file of the scoreboard, you can find it [scoreboard/score.json](here)
+If you need the Json file of the scoreboard, you can find it [here](scoreboard/score.json)
 
