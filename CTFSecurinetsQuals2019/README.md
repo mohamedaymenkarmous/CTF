@@ -38,7 +38,7 @@ Nothing intresting.
 Let's try visiting https://web0.ctfsecurinets.com/test
 
 <p align="center">
-<img src="resources/web-964-custom_location/1.PNG"/>
+<img src="resources/web-964-custom_location/2.PNG"/>
 </p>
 
 Now we can see an error page. It looks like we have much details as an error page. And it seems that it's based on php Symfony framework.
@@ -48,7 +48,7 @@ We try to click on one of the listed files under the error "NotFoundHttpExceptio
 For example we try getting access to the link below
 
 <p align="center">
-<img src="resources/web-964-custom_location/2.PNG"/>
+<img src="resources/web-964-custom_location/3.PNG"/>
 </p>
 
 We find out that this page show the source code of one of the Symfony project files from this link:
