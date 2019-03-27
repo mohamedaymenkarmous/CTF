@@ -56,7 +56,7 @@ We find out that this page show the source code of one of the Symfony project fi
 >https://web0.ctfsecurinets.com/_profiler/open?file=vendor/symfony/http-kernel/EventListener/RouterListener.php&line=139#line139
 
 <p align="center">
-<img src="resources/web-964-custom_location/3.PNG"/>
+<img src="resources/web-964-custom_location/4.PNG"/>
 </p>
 
 After some tests I changed the URL to:
@@ -66,7 +66,7 @@ After some tests I changed the URL to:
 And I was surprised that Symfony web profiler module was enabled. For persons that don't know what profiler is, it's a module that help developpers to debug code while development process. It's enabled on "dev" environnment.
 
 <p align="center">
-<img src="resources/web-964-custom_location/4.PNG"/>
+<img src="resources/web-964-custom_location/5.PNG"/>
 </p>
 
 Let's resume what we got, we have profiler enabled and we have to search about database credentials on web profiler configuration.
@@ -74,25 +74,25 @@ Let's resume what we got, we have profiler enabled and we have to search about d
 We get access to one of the logged requests
 
 <p align="center">
-<img src="resources/web-964-custom_location/5.PNG"/>
+<img src="resources/web-964-custom_location/6.PNG"/>
 </p>
 
 We go to configuration
 
 <p align="center">
-<img src="resources/web-964-custom_location/6.PNG"/>
+<img src="resources/web-964-custom_location/7.PNG"/>
 </p>
 
 And there we can find Symfony configuration
 
 <p align="center">
-<img src="resources/web-964-custom_location/7.PNG"/>
+<img src="resources/web-964-custom_location/8.PNG"/>
 </p>
 
 We get access to the "View full PHP configuration" link. But we got a blocking message
 
 <p align="center">
-<img src="resources/web-964-custom_location/8.PNG"/>
+<img src="resources/web-964-custom_location/9.PNG"/>
 </p>
 
 It looks like we should find database credentials without phpinfo.
@@ -108,7 +108,7 @@ This was very easy to find from Request/Response menu. Then, Server Parameters. 
 >"mysql://symfony_admin:Securinets{D4taB4se_P4sSw0Rd_My5qL_St0L3n}@127.0.0.1:3306/symfony_task"
 
 <p align="center">
-<img src="resources/web-964-custom_location/9.PNG"/>
+<img src="resources/web-964-custom_location/10.PNG"/>
 </p>
 
 So the flag is ``Securinets{D4taB4se_P4sSw0Rd_My5qL_St0L3n}``
@@ -127,7 +127,7 @@ So if we return to the configuraion page from the profiler, we can find Symfony 
 >Symfony 4.2.4
 
 <p align="center">
-<img src="resources/web-964-custom_location/10.PNG"/>
+<img src="resources/web-964-custom_location/11.PNG"/>
 </p>
 
 Now, after a quick search from Google, we find the configuration file that contains the database credentials for Symfony 4.2
@@ -135,7 +135,7 @@ Now, after a quick search from Google, we find the configuration file that conta
 >https://symfony.com/doc/4.2/best_practices/configuration.html
 
 <p align="center">
-<img src="resources/web-964-custom_location/11.PNG"/>
+<img src="resources/web-964-custom_location/12.PNG"/>
 </p>
 
 Then, we try to open `.env` file from the profiler
@@ -143,7 +143,7 @@ Then, we try to open `.env` file from the profiler
 >https://web0.ctfsecurinets.com/_profiler/open?file=.env
 
 <p align="center">
-<img src="resources/web-964-custom_location/12.PNG"/>
+<img src="resources/web-964-custom_location/13.PNG"/>
 </p>
 
 But it looks like that file was not found. And that's when we remember that task name is `Custom Location`. So that we need to find database credentials from a file that was moved to another location.
@@ -157,7 +157,7 @@ As a requirement, we need to install php 7.1 at least. Otherwise Symfony 3.4 wil
 Now, we start searching for the .env file from all Symfony files except Test files, vendor directory (third party directory of any external module), and cache files `grep '\.env' * -R | grep -v Test | grep -v vendor | grep -v cache`
 
 <p align="center">
-<img src="resources/web-964-custom_location/13.PNG"/>
+<img src="resources/web-964-custom_location/14.PNG"/>
 </p>
 
 So, after opening all these files, we find that the only possible file that could load `.env` file is `config/bootstrap.php`
@@ -167,12 +167,16 @@ And that's how we are going to find out the real `.env` file from the Web Profil
 >https://web0.ctfsecurinets.com/_profiler/open?file=config/bootstrap.php
 
 <p align="center">
-<img src="resources/web-964-custom_location/14.PNG"/>
+<img src="resources/web-964-custom_location/15.PNG"/>
 </p>
 
 So, the real `.env` file path is `secret_ctf_location/env`. We try to open it from the Web profiler
 
 >https://web0.ctfsecurinets.com/_profiler/open?file=secret_ctf_location/env
+
+<p align="center">
+<img src="resources/web-964-custom_location/16.PNG"/>
+</p>
 
 So the flag is `Securinets{D4taB4se_P4sSw0Rd_My5qL_St0L3n}`.
 ___
