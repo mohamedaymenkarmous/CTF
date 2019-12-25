@@ -78,7 +78,7 @@ ___
 >Remote server: http://challs.xmas.htsp.ro:11001
 
 
-**Hint (pinned on Web channel from Discord):**
+**Hint:**
 
 >Note: The ideas you post are public and logged, posting any X-MAS flags may disqualify your team
 
@@ -185,6 +185,73 @@ ___
 
 
 
+## Roboworld
+
+**Category:** Web
+**Points:** 50
+**Author:** Milkdrop
+**Description:**
+
+>A friend of mine told me about this website where I can find secret cool stuff. He even managed to leak a part of the source code for me, but when I try to login it always fails :(
+
+Can you figure out what's wrong and access the secret files?
+
+>Remote server: http://challs.xmas.htsp.ro:11000
+
+>Files: [leak.py](resources/web-50-roboworld/leak.py)
+
+**Hint:**
+
+>No hint.
+
+<p align="center">
+<img src="resources/web-50-roboworld/_description.PNG"/>
+</p>
+
+### Write-up
+
+After we opened the task link, we get this page
+
+<p align="center">
+<img src="resources/web-50-rigged_election/1.PNG"/>
+</p>
+
+And by reading the [leak.py](resources/web-50-roboworld/leak.py) file, we can see a hardcoded ``privkey``.
+
+<p align="center">
+<img src="resources/web-50-rigged_election/2.PNG"/>
+</p>
+
+And to validate this task, we have to validate the captcha that should be identical to the privkey, we have also to set the hardcoded username and password.
+
+And here, we can see that the validation is done using HTTP requests on localhost server. We can't bypass this process to send the request to the localhost server but as we know, we can trick the HTTP request to erase the privateKey value as we like so that it will be identical to the captcha `SAME_VALUE&privateKey=SAME_VALUE`
+
+This trick will be used in the Captcha checkbox like this:
+
+<p align="center">
+<img src="resources/web-50-rigged_election/3.PNG"/>
+</p>
+
+And it really works:
+
+<p align="center">
+<img src="resources/web-50-rigged_election/4.PNG"/>
+</p>
+
+Finally, after searching the flag inside these files, we will find it inside the .mp4 file reversed:
+
+<p align="center">
+<img src="resources/web-50-rigged_election/5.PNG"/>
+</p>
+
+So, the flag is `X-MAS{Am_1_Th3_R0bot?_0.o}`
+___
+
+
+
+
+
+
 ## Execute No Evil
 
 **Category:** Web
@@ -198,7 +265,7 @@ ___
 
 >Remote server: http://challs.xmas.htsp.ro:11002
 
-**Hint (pinned on Web channel from Discord):**
+**Hint:**
 
 >No hint
 
