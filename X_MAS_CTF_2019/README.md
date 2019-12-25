@@ -213,13 +213,13 @@ Can you figure out what's wrong and access the secret files?
 After we opened the task link, we get this page
 
 <p align="center">
-<img src="resources/web-50-rigged_election/1.PNG"/>
+<img src="resources/web-50-roboworld/1.PNG"/>
 </p>
 
 And by reading the [leak.py](resources/web-50-roboworld/leak.py) file, we can see a hardcoded ``privkey``.
 
 <p align="center">
-<img src="resources/web-50-rigged_election/2.PNG"/>
+<img src="resources/web-50-roboworld/2.PNG"/>
 </p>
 
 And to validate this task, we have to validate the captcha that should be identical to the privkey, we have also to set the hardcoded username and password.
@@ -229,19 +229,19 @@ And here, we can see that the validation is done using HTTP requests on localhos
 This trick will be used in the Captcha checkbox like this:
 
 <p align="center">
-<img src="resources/web-50-rigged_election/3.PNG"/>
+<img src="resources/web-50-roboworld/3.PNG"/>
 </p>
 
 And it really works:
 
 <p align="center">
-<img src="resources/web-50-rigged_election/4.PNG"/>
+<img src="resources/web-50-roboworld/4.PNG"/>
 </p>
 
 Finally, after searching the flag inside these files, we will find it inside the .mp4 file reversed:
 
 <p align="center">
-<img src="resources/web-50-rigged_election/5.PNG"/>
+<img src="resources/web-50-roboworld/5.PNG"/>
 </p>
 
 So, the flag is `X-MAS{Am_1_Th3_R0bot?_0.o}`
