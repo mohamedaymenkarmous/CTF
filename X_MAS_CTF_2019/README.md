@@ -2,7 +2,7 @@
 <img src="logo.png"/>
 </p>
 
-# CTFSecurinets Quals 2019 Writeup
+# X-MAS CTF 2019 Writeup
 This repository serves as a writeup for X-MAS CTF 2019
 
 ## Sequel Fun
