@@ -204,6 +204,10 @@ And that's how we get the flag.
 
 So the flag is `Securinets{EmpireTotal_Pwn3D_fr0m_Th3_0th3r_S1de}`.
 
+### Other solutions
+
+For more intresting details see [this write-up from @github.com/kahla-sec/CTF-Writeups](https://github.com/kahla-sec/CTF-Writeups/blob/master/Securinets%20Prequals%202k20/Empire%20Total/README.md)
+
 ___
 
 
