@@ -253,7 +253,7 @@ Now, coming to the implementation of this solution, also my friend Likkrid recom
 
 The python script is available here for download: [solver.py](resources/misc-283-secret_array/solver.py).
 
-```
+```python
 #!/usr/bin/python
 
 from pwn import *
@@ -305,6 +305,13 @@ print r.recv(1024)
 ```
 
 There was only one trick that took too much time for me since I was used to work with the socket module, when I switched to use the pwn library I though that I don't need to make a time.sleep() for some milliseconds between the send and the receive methods but I was wrong because I executed the script from my VPS and the execution was fast and then if I don't wait for few milliseconds, the response will be empty which is wrong because the sum of two values can't be empty.
+
+Execution:
+
+```
+pip install z3
+python resources/misc-283-secret_array/solver.py
+```
 
 Output:
 
