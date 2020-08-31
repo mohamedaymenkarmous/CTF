@@ -3,7 +3,7 @@
 </p>
 
 # FwordCTF 2020 Writeup
-This repository serves as a writeup for FwordCTF 2020 solved by S3c5murf's team
+This repository serves as a writeup for FwordCTF 2020 solved by [S3c5murf](https://ctftime.org/team/63808)'s team
 
 ## Identity Fraud
 
@@ -365,7 +365,7 @@ ___
 
 # Scoreboard
 
-After solving all these tasks in a team of two players (the third team member had an issue and was not able to join the party), our team **S3c5murf** get the score 3277 and get ranked 67/360 out of the teams that had a score greater than 0 :
+After solving all these tasks in a team of two players (the third team member had an issue and was not able to join the party), our team **[S3c5murf](https://ctftime.org/team/63808)** get the score 3277 and get ranked 67/360 out of the teams that had a score greater than 0 :
 
 <p align="center">
 <img src="scoreboard/team1.PNG"/>
