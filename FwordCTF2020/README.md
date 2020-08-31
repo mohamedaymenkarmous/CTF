@@ -686,7 +686,95 @@ ___
 
 ### Write-up
 
-Coming soon
+Following the initial setups of the previous task `Memory` and the last steps of the task `Memory 2`, in this task we have to find the file that the author's friend sent to him.
+
+We already know that a file was shared on Gofile according to the web browser's history.
+
+```
+volatility foren.raw --plugins=volatility-plugins/ -f foren.raw --profile=Win7SP0x64 chromehistory
+```
+
+Output:
+
+```
+Volatility Foundation Volatility Framework 2.6
+Index  URL                                                                              Title                                                                            Visits Typed Last Visit Time            Hidden Favicon ID
+------ -------------------------------------------------------------------------------- -------------------------------------------------------------------------------- ------ ----- -------------------------- ------ ----------
+    84 https://www.facebook.com/                                                        Facebook - Log In or Sign Up                                                          2     0 2020-08-26 09:13:16.484337        N/A
+    83 http://facebook.co/                                                              Facebook - Log In or Sign Up                                                          1     1 2020-08-26 09:13:15.341831        N/A
+    81 https://twitter.com/FwordTeam                                                    Fword (@FwordTeam) / Twitter                                                          1     0 2020-08-26 09:12:59.645547        N/A
+    82 https://ctf.fword.wtf/                                                           Fword CTF                                                                             1     0 2020-08-26 09:13:01.342381        N/A
+    86 https://youtube.com/                                                             YouTube                                                                               1     1 2020-08-26 09:13:21.325404        N/A
+    79 https://discord.gg/beEcn8Q                                                       FwordCTF                                                                              1     0 2020-08-26 09:12:58.178974        N/A
+    80 https://discord.com/invite/beEcn8Q                                               FwordCTF                                                                              1     0 2020-08-26 09:12:58.178974        N/A
+    77 http://fword.wtf/                                                                Fword CTF                                                                             1     0 2020-08-26 09:12:55.299362        N/A
+    78 https://fword.wtf/                                                               Fword CTF                                                                             1     1 2020-08-26 09:12:55.299362        N/A
+    92 https://www.youtube.com/watch?v=sT1TFWDvL78&list=RD1XsfrpqXPc0&index=2           Lomepal - Trop Beau (Emma Péters Cover & Crisologo Remix) - YouTube                  1     0 2020-08-26 09:16:56.579216        N/A
+    90 https://webchat.freenode.net/                                                    Kiwi IRC - The web IRC client                                                         1     1 2020-08-26 09:13:32.517035        N/A
+    89 http://webchat.freenode.net/                                                     Kiwi IRC - The web IRC client                                                         1     0 2020-08-26 09:13:32.517035        N/A
+    91 https://gofile.io/d/k2RkIS                                                       Gofile                                                                                1     0 2020-08-26 09:16:55.222846        N/A
+    88 https://www.youtube.com/watch?v=1XsfrpqXPc0&list=RD1XsfrpqXPc0&start_radio=1     Gabriel Vitel - Feeling Better - YouTube                                              1     0 2020-08-26 09:13:25.497121        N/A
+    87 https://www.youtube.com/                                                         YouTube                                                                               3     0 2020-08-26 09:13:25.489943        N/A
+    85 http://youtube.com/                                                              YouTube                                                                               1     0 2020-08-26 09:13:21.325404        N/A
+    93 https://www.youtube.com/watch?v=h3EEhWecuoA&list=RD1XsfrpqXPc0&index=3           Izzamuzzic - Adventure (Original Mix) - YouTube                                       1     0 2020-08-26 09:21:41.640325        N/A
+```
+
+The file that we are searching for was available in this web page: [https://gofile.io/d/k2RkIS](https://gofile.io/d/k2RkIS).
+
+That file was an compressed and encrypted .zip file
+
+<p align="center">
+<img src="resources/forensics-405-memory_3/1.PNG"/>
+</p>
+
+I downloaded the file (available here: [important.zip](resources/forensics-405-memory_3/important.zip))
+
+And since in the description, the author asked to avoid brute forcing the password, I knew that he was talking about the .zip file.
+
+Personally, since the `Memory` tasks are chained (the next task will be visible only if you solve the actual task), I was able to solve the `Memory 3` task (without seeing its description) before the `Memory 2` task and even if the flag of the `Memory 2` task was there in the output of the ``strings`` command (see the previous task), I don't know why I ignored it and I was focused on a way to extract the flag from the compressed encrypted .zip file and I figured out that the author was talking with his friend on IRC so I checked again the conversation adn I found that they shared the file's password there.
+
+But without seeing the `Memory 3`'s description, I didn't know that brute forcing the .zip's password can't help me because I tried it and I failed. And from this moment, I asked myself why can't I try to use the `strings` command to search for the .zip's password there ? And since I know that the password will not be obvious (it will not contain the word `FwordCTF`), I tried the following commands.
+
+```
+strings foren.raw > /tmp/foen_strings.log
+grep -i "password " /tmp/foen_strings.log
+```
+
+And I found the common results as the previous task `Memory 2`.
+
+Output:
+
+```
+[REDACTED]
+ha[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :Hmmm"]ha[":1 :stross.freenode.net PONG stross.freenode.net :"]ha[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :No problem I'll give it again .. "]a[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :Just be careful this time"]ha[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :The password is"]a[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :fw0rdsecretp4ss"]ha[":1 :stross.freenode.net PONG stross.freenode.net :"]a[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :See yaa Bahlous \\o"]hha[":1 :stross.freenode.net PONG stross.freenode.net :"]ha[":1 :stross.freenode.net PONG stross.freenode.net :"]ha[":1 :stross.freenode.net PONG stross.freenode.net :"]ha[":1 :stross.freenode.net PONG stross.freenode.net :"]h
+[REDACTED]
+```
+
+We will take only a small part:
+
+```
+:KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :The password is"]a[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :fw0rdsecretp4ss"]ha[":1
+```
+
+This is understandable as
+
+```
+KOOLI!c50e307f is connecting from 197.14.48.127
+He is talking from the channel #FwordCTF{top_secret_channel}
+He send the message: The password is
+He also sent another message: fw0rdsecretp4ss
+And he was laughing
+```
+
+So, the password is ``fw0rdsecretp4ss``.
+
+And, when we used it to extract the files from the .zip file, we found an image that contain the flag: [flag1.png](resources/forensics-405-memory_3/flag1.png)
+
+<p align="center">
+<img src="resources/forensics-405-memory_3/flag1.png"/>
+</p>
+
+So, the flag is ```FwordCTF{dont_share_secrets_on_public_channels}```.
 ___
 
 
