@@ -371,7 +371,7 @@ After solving all these tasks in a team of two players (the third team member ha
 <img src="scoreboard/team1.PNG"/>
 </p>
 <p align="center">
-<img src="scoreboard/tea2.PNG"/>
+<img src="scoreboard/team2.PNG"/>
 </p>
 <p align="center">
 <img src="scoreboard/team3.PNG"/>
