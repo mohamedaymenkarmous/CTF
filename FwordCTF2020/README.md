@@ -523,7 +523,140 @@ ___
 
 ### Write-up
 
-Coming soon
+Following the initial setups of the previous task `Memory`, in this task we have to find the channel where the author had a secret chat conversation with his friend.
+
+This reminded me to inspect the processes list and to check which process seems to be used for chatting (obviously a web browser) and then to retrieve the channel from there.
+
+I found a useful tutorial for few commands that I needed to list the captured processes: [First steps to volatile memory analysis](https://medium.com/@zemelusa/first-steps-to-volatile-memory-analysis-dcbd4d2d56a1).
+
+I tried the following command.
+
+```
+volatility -f foren.raw --profile=Win7SP0x64 pstree
+```
+
+Output:
+
+```
+Volatility Foundation Volatility Framework 2.6
+Name                                                  Pid   PPid   Thds   Hnds Time
+-------------------------------------------------- ------ ------ ------ ------ ----
+ 0xfffffa801af105c0:explorer.exe                     1000   1332     31    896 2020-08-26 09:11:21 UTC+0000
+. 0xfffffa801b024780:WzPreloader.ex                  2264   1000      6    123 2020-08-26 09:11:21 UTC+0000
+. 0xfffffa801adeaa40:mspaint.exe                     1044   1000      7    133 2020-08-26 09:20:28 UTC+0000
+. 0xfffffa801aca4060:chrome.exe                      3700   1000     33    986 2020-08-26 09:12:48 UTC+0000
+.. 0xfffffa801af86b00:chrome.exe                     2560   3700     13    337 2020-08-26 09:12:48 UTC+0000
+.. 0xfffffa8019ac0640:chrome.exe                     3992   3700     14    216 2020-08-26 09:13:33 UTC+0000
+.. 0xfffffa8018e55b00:chrome.exe                     3304   3700      8    231 2020-08-26 09:12:50 UTC+0000
+.. 0xfffffa8019b5b5f0:chrome.exe                      540   3700     13    171 2020-08-26 09:13:21 UTC+0000
+.. 0xfffffa801ab9c750:chrome.exe                     3752   3700      8     93 2020-08-26 09:12:48 UTC+0000
+.. 0xfffffa8019b60060:chrome.exe                     3816   3700     13    195 2020-08-26 09:13:22 UTC+0000
+.. 0xfffffa8019a5b360:chrome.exe                     3528   3700     11    209 2020-08-26 09:12:55 UTC+0000
+.. 0xfffffa8019b2ab00:chrome.exe                      616   3700     26    332 2020-08-26 09:13:21 UTC+0000
+.. 0xfffffa8019b6fb00:chrome.exe                     2516   3700     17    294 2020-08-26 09:13:32 UTC+0000
+. 0xfffffa8019bf7060:DumpIt.exe                      1764   1000      2     52 2020-08-26 09:22:18 UTC+0000
+ 0xfffffa801a74db00:wininit.exe                       388    348      3     84 2020-08-26 09:10:27 UTC+0000
+. 0xfffffa801a74e7e0:services.exe                     488    388      8    232 2020-08-26 09:10:27 UTC+0000
+.. 0xfffffa801aaba450:svchost.exe                    3308    488     14    339 2020-08-26 09:12:31 UTC+0000
+.. 0xfffffa801abff060:svchost.exe                    1240    488     18    311 2020-08-26 09:10:29 UTC+0000
+.. 0xfffffa801aa64510:svchost.exe                     900    488     38   1047 2020-08-26 09:10:27 UTC+0000
+... 0xfffffa8019bf2060:wuauclt.exe                   1876    900      3     98 2020-08-26 09:13:33 UTC+0000
+.. 0xfffffa8019bc0b00:svchost.exe                    3284    488      7    110 2020-08-26 09:20:28 UTC+0000
+.. 0xfffffa801a9e6b00:svchost.exe                     680    488      8    298 2020-08-26 09:10:27 UTC+0000
+.. 0xfffffa801a976b00:mscorsvw.exe                   4012    488      6     93 2020-08-26 09:12:30 UTC+0000
+.. 0xfffffa801b3211e0:svchost.exe                    2996    488     10    366 2020-08-26 09:11:29 UTC+0000
+.. 0xfffffa801ab61b00:svchost.exe                    1336    488     10    147 2020-08-26 09:10:30 UTC+0000
+.. 0xfffffa801aecf5f0:taskhost.exe                   2036    488     10    234 2020-08-26 09:11:20 UTC+0000
+.. 0xfffffa8018e10b00:spoolsv.exe                    1212    488     14    299 2020-08-26 09:10:29 UTC+0000
+.. 0xfffffa801ab66b00:svchost.exe                    1096    488     16    480 2020-08-26 09:10:29 UTC+0000
+.. 0xfffffa801ae2e060:sppsvc.exe                     1360    488      4    151 2020-08-26 09:10:34 UTC+0000
+.. 0xfffffa8018e4f4f0:svchost.exe                    1748    488      7    104 2020-08-26 09:10:30 UTC+0000
+.. 0xfffffa801a9bb060:svchost.exe                     600    488     11    367 2020-08-26 09:10:27 UTC+0000
+... 0xfffffa801a5f95f0:WmiPrvSE.exe                   952    600      5    120 2020-08-26 09:11:30 UTC+0000
+.. 0xfffffa801ae824b0:mscorsvw.exe                   4052    488      6     83 2020-08-26 09:12:31 UTC+0000
+.. 0xfffffa801aa4a860:svchost.exe                     864    488     22    574 2020-08-26 09:10:27 UTC+0000
+.. 0xfffffa801b20fb00:wmpnetwk.exe                   2768    488     14    494 2020-08-26 09:11:28 UTC+0000
+.. 0xfffffa801ac9bb00:svchost.exe                    1388    488     22    340 2020-08-26 09:10:30 UTC+0000
+.. 0xfffffa801aa34b00:svchost.exe                     808    488     26    533 2020-08-26 09:10:27 UTC+0000
+... 0xfffffa8019f45870:dwm.exe                       1604    808      3     80 2020-08-26 09:11:20 UTC+0000
+.. 0xfffffa801a9ecb00:svchost.exe                     756    488     23    588 2020-08-26 09:10:27 UTC+0000
+... 0xfffffa801aa879b0:audiodg.exe                    968    756      8    148 2020-08-26 09:10:28 UTC+0000
+.. 0xfffffa801aec4480:SearchIndexer.                 2644    488     13    711 2020-08-26 09:11:27 UTC+0000
+.. 0xfffffa801aab6410:TrustedInstall                 1020    488      5    147 2020-08-26 09:10:28 UTC+0000
+. 0xfffffa801a5f3b00:lsass.exe                        496    388     10    752 2020-08-26 09:10:27 UTC+0000
+. 0xfffffa801a79a550:lsm.exe                          504    388     10    147 2020-08-26 09:10:27 UTC+0000
+ 0xfffffa801a738060:csrss.exe                         356    348     10    459 2020-08-26 09:10:26 UTC+0000
+ 0xfffffa8018da8040:System                              4      0    103    585 2020-08-26 09:10:17 UTC+0000
+. 0xfffffa8019ebdb00:smss.exe                         264      4      2     32 2020-08-26 09:10:17 UTC+0000
+ 0xfffffa801a72fa00:csrss.exe                         404    380      9    384 2020-08-26 09:10:27 UTC+0000
+. 0xfffffa801b2ad060:conhost.exe                     2592    404      2     56 2020-08-26 09:22:18 UTC+0000
+ 0xfffffa801a763930:winlogon.exe                      448    380      5    122 2020-08-26 09:10:27 UTC+0000
+ 0xfffffa801b01d480:FAHWindow64.ex                   2252   2240      2     77 2020-08-26 09:11:21 UTC+0000
+```
+
+The only obvious process name that could be used for chatting is the Chrome browser (chrome.exe).
+
+There was an interesting tutorial that is important to extract the web browser's history using Volatility plugin: [Volatility Plugin – Chrome History](https://blog.superponible.com/2014/08/31/volatility-plugin-chrome-history/).
+
+I downloaded the plugin from github.
+
+```
+git clone https://github.com/superponible/volatility-plugins
+```
+
+And I used it to extract the browser's history.
+
+```
+volatility foren.raw --plugins=volatility-plugins/ -f foren.raw --profile=Win7SP0x64 chromehistory
+```
+
+Output:
+
+```
+Volatility Foundation Volatility Framework 2.6
+Index  URL                                                                              Title                                                                            Visits Typed Last Visit Time            Hidden Favicon ID
+------ -------------------------------------------------------------------------------- -------------------------------------------------------------------------------- ------ ----- -------------------------- ------ ----------
+    84 https://www.facebook.com/                                                        Facebook - Log In or Sign Up                                                          2     0 2020-08-26 09:13:16.484337        N/A
+    83 http://facebook.co/                                                              Facebook - Log In or Sign Up                                                          1     1 2020-08-26 09:13:15.341831        N/A
+    81 https://twitter.com/FwordTeam                                                    Fword (@FwordTeam) / Twitter                                                          1     0 2020-08-26 09:12:59.645547        N/A
+    82 https://ctf.fword.wtf/                                                           Fword CTF                                                                             1     0 2020-08-26 09:13:01.342381        N/A
+    86 https://youtube.com/                                                             YouTube                                                                               1     1 2020-08-26 09:13:21.325404        N/A
+    79 https://discord.gg/beEcn8Q                                                       FwordCTF                                                                              1     0 2020-08-26 09:12:58.178974        N/A
+    80 https://discord.com/invite/beEcn8Q                                               FwordCTF                                                                              1     0 2020-08-26 09:12:58.178974        N/A
+    77 http://fword.wtf/                                                                Fword CTF                                                                             1     0 2020-08-26 09:12:55.299362        N/A
+    78 https://fword.wtf/                                                               Fword CTF                                                                             1     1 2020-08-26 09:12:55.299362        N/A
+    92 https://www.youtube.com/watch?v=sT1TFWDvL78&list=RD1XsfrpqXPc0&index=2           Lomepal - Trop Beau (Emma Péters Cover & Crisologo Remix) - YouTube                  1     0 2020-08-26 09:16:56.579216        N/A
+    90 https://webchat.freenode.net/                                                    Kiwi IRC - The web IRC client                                                         1     1 2020-08-26 09:13:32.517035        N/A
+    89 http://webchat.freenode.net/                                                     Kiwi IRC - The web IRC client                                                         1     0 2020-08-26 09:13:32.517035        N/A
+    91 https://gofile.io/d/k2RkIS                                                       Gofile                                                                                1     0 2020-08-26 09:16:55.222846        N/A
+    88 https://www.youtube.com/watch?v=1XsfrpqXPc0&list=RD1XsfrpqXPc0&start_radio=1     Gabriel Vitel - Feeling Better - YouTube                                              1     0 2020-08-26 09:13:25.497121        N/A
+    87 https://www.youtube.com/                                                         YouTube                                                                               3     0 2020-08-26 09:13:25.489943        N/A
+    85 http://youtube.com/                                                              YouTube                                                                               1     0 2020-08-26 09:13:21.325404        N/A
+    93 https://www.youtube.com/watch?v=h3EEhWecuoA&list=RD1XsfrpqXPc0&index=3           Izzamuzzic - Adventure (Original Mix) - YouTube                                       1     0 2020-08-26 09:21:41.640325        N/A
+```
+
+Apart Facebook, Twitter, Fword platform, Youtube and the Fword's discord's public channel, there was 2 websites that could be used for a secret chat: `https://gofile.io/d/k2RkIS` (Gofile used to share files) and `https://webchat.freenode.net/` (Kiwi IRC - The web IRC client which is an IRC web client used for IRC chatting).
+
+Personally, when I saw the Gofile website I forget to follow the IRC track and I will discuss about this in the next task `Memory 3` because that file is intended for that task and we can't solve it or validate its flag before seeing the flag of the actual task `Memory 2`. And I figured out that I needed to catch for any data related to the IRC chat that occurred in the Chrome web browser. But since I wasn't be able to find a clean method to do that, I used the `strings` command and I searched for any keyword related to IRC.
+
+```
+strings foren.raw > /tmp/foen_strings.log
+grep -i "freenode " /tmp/foen_strings.log
+```
+
+Output:
+
+```
+[REDACTED]
+ha[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :Hmmm"]ha[":1 :stross.freenode.net PONG stross.freenode.net :"]ha[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :No problem I'll give it again .. "]a[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :Just be careful this time"]ha[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :The password is"]a[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :fw0rdsecretp4ss"]ha[":1 :stross.freenode.net PONG stross.freenode.net :"]a[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :See yaa Bahlous \\o"]hha[":1 :stross.freenode.net PONG stross.freenode.net :"]ha[":1 :stross.freenode.net PONG stross.freenode.net :"]ha[":1 :stross.freenode.net PONG stross.freenode.net :"]ha[":1 :stross.freenode.net PONG stross.freenode.net :"]h
+[REDACTED]
+```
+
+For the people that know the IRC commands, `/PRIVMSG` is used to join a channel using the channel name. So, the channel name is `#FwordCTF{top_secret_channel}` (the # is mandatory in IRC channel names).
+
+This task could be easily be solved using `strings foren.raw | grep FwordCTF`. But this is not a good idea because it's useless to solve a task using such method since it doesn't explain the real purpose of the task.
+
+So, the flag is ```FwordCTF{top_secret_channel}```.
 ___
 
 
