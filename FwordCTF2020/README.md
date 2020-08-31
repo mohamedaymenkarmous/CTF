@@ -756,7 +756,7 @@ We will take only a small part:
 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :The password is"]a[":1 :KOOLI!c50e307f@197.14.48.127 PRIVMSG #FwordCTF{top_secret_channel} :fw0rdsecretp4ss"]ha[":1
 ```
 
-This is understandable as
+This is understandable as:
 
 ```
 KOOLI!c50e307f is connecting from 197.14.48.127
@@ -803,7 +803,103 @@ ___
 
 ### Write-up
 
-Coming soon
+Following the initial setups of the previous task `Memory`, in this task we have to find the flag in the weird place.
+
+I wanted to predict where the flag is by using the timeline of the process executions and by excluding the system processes and the processes that we already worked on in the previous tasks but as usual I found the flag of the next task `Memory 5` before finding the flag of the actual task `Memory 4`.
+
+And when I wanted to understand what does that mean `weird place`, if this can't be the processes that we already worked on and that could be related to geeks, I thought about the user's registry keys.
+
+So, I get back to the following command.
+
+```
+volatility -f foren.raw --profile=Win7SP0x64 hivelist
+```
+
+Output:
+
+```
+Volatility Foundation Volatility Framework 2.6
+Virtual            Physical           Name
+------------------ ------------------ ----
+0xfffff8a000b0f410 0x000000002720d410 \??\C:\Windows\ServiceProfiles\LocalService\NTUSER.DAT
+0xfffff8a000d00010 0x000000001ff75010 \??\C:\Windows\ServiceProfiles\NetworkService\NTUSER.DAT
+0xfffff8a000f8b410 0x00000000175e8410 \??\C:\Windows\System32\config\COMPONENTS
+0xfffff8a00145f010 0x0000000027d9b010 \SystemRoot\System32\Config\DEFAULT
+0xfffff8a0014da410 0x00000000275c0410 \SystemRoot\System32\Config\SAM
+0xfffff8a0033fe410 0x0000000069de6410 \??\C:\Users\SBA_AK\ntuser.dat
+0xfffff8a0036e7010 0x0000000069188010 \??\C:\Users\SBA_AK\AppData\Local\Microsoft\Windows\UsrClass.dat
+0xfffff8a0038fe280 0x0000000068390280 \??\C:\System Volume Information\Syscache.hve
+0xfffff8a00000f010 0x000000002cfef010 [no name]
+0xfffff8a000024010 0x000000002d07a010 \REGISTRY\MACHINE\SYSTEM
+0xfffff8a000058010 0x000000002d3ae010 \REGISTRY\MACHINE\HARDWARE
+0xfffff8a000846010 0x000000002a0e9010 \Device\HarddiskVolume1\Boot\BCD
+0xfffff8a000873010 0x0000000013880010 \SystemRoot\System32\Config\SOFTWARE
+0xfffff8a000ab8010 0x0000000027455010 \SystemRoot\System32\Config\SECURITY
+```
+
+And since we know that the user that we are investigating is `SBA_AK`, we have two file paths that we have might need to check: `\??\C:\Users\SBA_AK\ntuser.dat` or/and `\??\C:\Users\SBA_AK\AppData\Local\Microsoft\Windows\UsrClass.dat`.
+
+I started with the first one and I used its virtual offset in the volatility command to list the registry keys.
+
+```
+volatility -f foren.raw --profile=Win7SP0x64 printkey -o 0xfffff8a0033fe410
+```
+
+Output:
+
+```
+Volatility Foundation Volatility Framework 2.6
+Legend: (S) = Stable   (V) = Volatile
+
+----------------------------
+Registry: \??\C:\Users\SBA_AK\ntuser.dat
+Key name: CMI-CreateHive{D43B12B8-09B5-40DB-B4F6-F6DFEB78DAEC} (S)
+Last updated: 2020-08-26 09:11:20 UTC+0000
+
+Subkeys:
+  (S) AppEvents
+  (S) Console
+  (S) Control Panel
+  (S) Environment
+  (S) EUDC
+  (S) FLAG
+  (S) Identities
+  (S) Keyboard Layout
+  (S) Network
+  (S) Printers
+  (S) Software
+  (S) System
+  (V) Volatile Environment
+
+Values:
+```
+
+And that's how I soptted the subkey `FLAG` that might contain the flag.
+
+Then, I printed its value.
+
+```
+volatility -f foren.raw --profile=Win7SP0x64 printkey -o 0xfffff8a0033fe410 -K "FLAG"
+```
+
+Output:
+
+```
+Volatility Foundation Volatility Framework 2.6
+Legend: (S) = Stable   (V) = Volatile
+
+----------------------------
+Registry: \??\C:\Users\SBA_AK\ntuser.dat
+Key name: FLAG (S)
+Last updated: 2020-08-25 18:45:05 UTC+0000
+
+Subkeys:
+
+Values:
+REG_SZ                        : (S) FwordCTF{hiding_secrets_in_regs}
+```
+
+So, the flag is ```FwordCTF{hiding_secrets_in_regs}```.
 ___
 
 
@@ -832,7 +928,123 @@ ___
 
 ### Write-up
 
-Coming soon
+Following the initial setups of the previous task `Memory`, in this task we have to find the flag in the weird place.
+
+Since I solved this task `Memory 5` before solving the `Memory 4` task, I didn't have the chance to read its description because the task `Memory 5` will not be visible unless I solve the `Memory 4` task.
+
+I wanted to predict where the flag is by using the timeline of the process executions and by excluding the system processes and the processes that we already worked on in the previous tasks.
+
+```
+volatility -f foren.raw --profile=Win7SP0x64 pslist
+```
+
+Output:
+
+```
+Volatility Foundation Volatility Framework 2.6
+Offset(V)          Name                    PID   PPID   Thds     Hnds   Sess  Wow64 Start                          Exit
+------------------ -------------------- ------ ------ ------ -------- ------ ------ ------------------------------ ------------------------------
+0xfffffa8018da8040 System                    4      0    103      585 ------      0 2020-08-26 09:10:17 UTC+0000
+0xfffffa8019ebdb00 smss.exe                264      4      2       32 ------      0 2020-08-26 09:10:17 UTC+0000
+0xfffffa801a738060 csrss.exe               356    348     10      459      0      0 2020-08-26 09:10:26 UTC+0000
+0xfffffa801a74db00 wininit.exe             388    348      3       84      0      0 2020-08-26 09:10:27 UTC+0000
+0xfffffa801a72fa00 csrss.exe               404    380      9      384      1      0 2020-08-26 09:10:27 UTC+0000
+0xfffffa801a763930 winlogon.exe            448    380      5      122      1      0 2020-08-26 09:10:27 UTC+0000
+0xfffffa801a74e7e0 services.exe            488    388      8      232      0      0 2020-08-26 09:10:27 UTC+0000
+0xfffffa801a5f3b00 lsass.exe               496    388     10      752      0      0 2020-08-26 09:10:27 UTC+0000
+0xfffffa801a79a550 lsm.exe                 504    388     10      147      0      0 2020-08-26 09:10:27 UTC+0000
+0xfffffa801a9bb060 svchost.exe             600    488     11      367      0      0 2020-08-26 09:10:27 UTC+0000
+0xfffffa801a9e6b00 svchost.exe             680    488      8      298      0      0 2020-08-26 09:10:27 UTC+0000
+0xfffffa801a9ecb00 svchost.exe             756    488     23      588      0      0 2020-08-26 09:10:27 UTC+0000
+0xfffffa801aa34b00 svchost.exe             808    488     26      533      0      0 2020-08-26 09:10:27 UTC+0000
+0xfffffa801aa4a860 svchost.exe             864    488     22      574      0      0 2020-08-26 09:10:27 UTC+0000
+0xfffffa801aa64510 svchost.exe             900    488     38     1047      0      0 2020-08-26 09:10:27 UTC+0000
+0xfffffa801aa879b0 audiodg.exe             968    756      8      148      0      0 2020-08-26 09:10:28 UTC+0000
+0xfffffa801aab6410 TrustedInstall         1020    488      5      147      0      0 2020-08-26 09:10:28 UTC+0000
+0xfffffa801ab66b00 svchost.exe            1096    488     16      480      0      0 2020-08-26 09:10:29 UTC+0000
+0xfffffa8018e10b00 spoolsv.exe            1212    488     14      299      0      0 2020-08-26 09:10:29 UTC+0000
+0xfffffa801abff060 svchost.exe            1240    488     18      311      0      0 2020-08-26 09:10:29 UTC+0000
+0xfffffa801ab61b00 svchost.exe            1336    488     10      147      0      0 2020-08-26 09:10:30 UTC+0000
+0xfffffa801ac9bb00 svchost.exe            1388    488     22      340      0      0 2020-08-26 09:10:30 UTC+0000
+0xfffffa8018e4f4f0 svchost.exe            1748    488      7      104      0      0 2020-08-26 09:10:30 UTC+0000
+0xfffffa801ae2e060 sppsvc.exe             1360    488      4      151      0      0 2020-08-26 09:10:34 UTC+0000
+0xfffffa801aecf5f0 taskhost.exe           2036    488     10      234      1      0 2020-08-26 09:11:20 UTC+0000
+0xfffffa8019f45870 dwm.exe                1604    808      3       80      1      0 2020-08-26 09:11:20 UTC+0000
+0xfffffa801af105c0 explorer.exe           1000   1332     31      896      1      0 2020-08-26 09:11:21 UTC+0000
+0xfffffa801b01d480 FAHWindow64.ex         2252   2240      2       77      1      0 2020-08-26 09:11:21 UTC+0000
+0xfffffa801b024780 WzPreloader.ex         2264   1000      6      123      1      0 2020-08-26 09:11:21 UTC+0000
+0xfffffa801aec4480 SearchIndexer.         2644    488     13      711      0      0 2020-08-26 09:11:27 UTC+0000
+0xfffffa801b20fb00 wmpnetwk.exe           2768    488     14      494      0      0 2020-08-26 09:11:28 UTC+0000
+0xfffffa801b3211e0 svchost.exe            2996    488     10      366      0      0 2020-08-26 09:11:29 UTC+0000
+0xfffffa801a5f95f0 WmiPrvSE.exe            952    600      5      120      0      0 2020-08-26 09:11:30 UTC+0000
+0xfffffa801a976b00 mscorsvw.exe           4012    488      6       93      0      1 2020-08-26 09:12:30 UTC+0000
+0xfffffa801ae824b0 mscorsvw.exe           4052    488      6       83      0      0 2020-08-26 09:12:31 UTC+0000
+0xfffffa801aaba450 svchost.exe            3308    488     14      339      0      0 2020-08-26 09:12:31 UTC+0000
+0xfffffa801aca4060 chrome.exe             3700   1000     33      986      1      0 2020-08-26 09:12:48 UTC+0000
+0xfffffa801ab9c750 chrome.exe             3752   3700      8       93      1      0 2020-08-26 09:12:48 UTC+0000
+0xfffffa801af86b00 chrome.exe             2560   3700     13      337      1      0 2020-08-26 09:12:48 UTC+0000
+0xfffffa8018e55b00 chrome.exe             3304   3700      8      231      1      0 2020-08-26 09:12:50 UTC+0000
+0xfffffa8019a5b360 chrome.exe             3528   3700     11      209      1      0 2020-08-26 09:12:55 UTC+0000
+0xfffffa8019b2ab00 chrome.exe              616   3700     26      332      1      0 2020-08-26 09:13:21 UTC+0000
+0xfffffa8019b5b5f0 chrome.exe              540   3700     13      171      1      0 2020-08-26 09:13:21 UTC+0000
+0xfffffa8019b60060 chrome.exe             3816   3700     13      195      1      0 2020-08-26 09:13:22 UTC+0000
+0xfffffa8019b6fb00 chrome.exe             2516   3700     17      294      1      0 2020-08-26 09:13:32 UTC+0000
+0xfffffa8019ac0640 chrome.exe             3992   3700     14      216      1      0 2020-08-26 09:13:33 UTC+0000
+0xfffffa8019bf2060 wuauclt.exe            1876    900      3       98      1      0 2020-08-26 09:13:33 UTC+0000
+0xfffffa801adeaa40 mspaint.exe            1044   1000      7      133      1      0 2020-08-26 09:20:28 UTC+0000
+0xfffffa8019bc0b00 svchost.exe            3284    488      7      110      0      0 2020-08-26 09:20:28 UTC+0000
+0xfffffa8019bf7060 DumpIt.exe             1764   1000      2       52      1      1 2020-08-26 09:22:18 UTC+0000
+0xfffffa801b2ad060 conhost.exe            2592    404      2       56      1      0 2020-08-26 09:22:18 UTC+0000
+```
+
+And I found that the only process that we didn't already checked and that was executed later was `mspaint.exe` (Paint).
+
+Now, coming back to the reality, the task description was mentioning the Paint tool.
+
+And the challenge that I tried to solve is more difficult because without the task's description, I didn't have the image's dimensions.
+
+I have the process name and the process ID that I have to work on in order to extract the painted image from the memory that contain the flag.
+
+I followed this write-up to do that: [Google CTF 2016 – Forensic “For1” Write-up](https://www.rootusers.com/google-ctf-2016-forensic-for1-write-up/).
+
+And the first step that I needed to do was to extract the memory dump for that specific process.
+
+```
+volatility -f foren.raw --profile=Win7SP0x64 memdump -p 1044 -D /tmp
+```
+
+The extracted memory dump file will be located on `/tmp/1044.dmp`.
+
+And as pointed in the mentioned write-up, we have to download Gimp, to rename the file from 1044.dmp to 1044.data and to open it using Gimp.
+
+The extracted file 1044.dmp was bigger than the memory dump and I still can't explain why we see such behavior when we dump the process in a separate file.
+
+And as I said, when I solved this task, I didn''t have the image's dimensions and when I opened the 1044.data file using Gimp, I had 3 parameters to change: the offset, the width and the height.
+
+But I found that the height parameter is not really important because we only need to change the width because as I understood, the width will limit the number of pixels per line and if the width is incorrect, all the lines after the first line will be shifted and that will avoid us to see the image because every next line will be also shifted from the previous line.
+
+The first time, I tried to work with a larger width because I was saying that I will see the whole picture when the windows is larger but this is not always correct.
+
+The offset is used to scroll the image between the left and the right by shifting or popping the pixels in the view (from the beginning first index and the last index of the array).
+
+This makes the width more important than the offset.
+
+So, if we have the correct width, we can clearly find the painted image only by changing the offset because we will be scrolling the memory dump until we get to the painted image since the memory dump must contain the data of that process and Paint's data is an image.
+
+The only thing that made me lucky in this task is, I though that we have to guess the image dimensions that that will not be difficult. So, I supposed that the painted image will be square shaped. And when I used a larger width and I changed the offset from the min to the max and I didn't find any interesting thing, I reduced the width until 350 or 400. And I changed again the offset from the minimum to the maximum until I found an interesting blank image that contains some random lines. Then, I changed the width and the height to make the image square (but as I said, changing the height will not be useful since the image can be visible with a wrong height) until I found an interesting image with a width equals to 300 but the image was still not clear. So, I changed the width from 100, 200, 300, 400, 500, 600 and Bingo! the width was 600. And the image is still clear with a width proportional to 600 (like 1200, 1800, 2400).
+
+<p align="center">
+<img src="resources/forensics-495-memory_5/1.PNG"/>
+</p>
+
+Then, I took a screenshot on that image and I rotated it to see the flag clearly.
+
+<p align="center">
+<img src="resources/forensics-495-memory_5/2.png"/>
+</p>
+
+So, the flag is ```FwordCTF{Paint_Skills_FTW!}```.
+
 ___
 
 
