@@ -368,7 +368,133 @@ ___
 
 ### Write-up
 
-Coming soon
+In this task, we have a memory dump that we need to analyze in order to get the flag according to what the author needs.
+
+Before starting this task, we have to extract the memory dump from the compressed file using `7z e foren.7z` and we will work on the extracted file `foren.raw`.
+
+The first thing that we need to do when analyzing an unknown memory dump is to identify its profile.
+
+```
+volatility -f foren.raw imageinfo
+```
+
+Output:
+
+```
+Volatility Foundation Volatility Framework 2.6
+INFO    : volatility.debug    : Determining profile based on KDBG search...
+          Suggested Profile(s) : Win7SP1x64, Win7SP0x64, Win2008R2SP0x64, Win2008R2SP1x64_24000, Win2008R2SP1x64_23418, Win2008R2SP1x64, Win7SP1x64_24000, Win7SP1x64_23418
+                     AS Layer1 : WindowsAMD64PagedMemory (Kernel AS)
+                     AS Layer2 : FileAddressSpace (/root/fword/foren.raw)
+                      PAE type : No PAE
+                           DTB : 0x187000L
+                          KDBG : 0xf80002c48120L
+          Number of Processors : 4
+     Image Type (Service Pack) : 1
+                KPCR for CPU 0 : 0xfffff80002c4a000L
+                KPCR for CPU 1 : 0xfffff88002f00000L
+                KPCR for CPU 2 : 0xfffff88002f7d000L
+                KPCR for CPU 3 : 0xfffff880009af000L
+             KUSER_SHARED_DATA : 0xfffff78000000000L
+           Image date and time : 2020-08-26 09:22:27 UTC+0000
+     Image local date and time : 2020-08-26 02:22:27 -0700
+```
+
+There was multiple suggested profiles but I picked one of them which is `Win7SP0x64`.
+
+Personally, I followed this tutorial for the first part of this task to identify the hostname just to avoid taking the full credits for solving this task: [Volatility/Retrieve-hostname](https://www.aldeid.com/wiki/Volatility/Retrieve-hostname).
+
+By following the previous tutorial, we need to list the hives of that memory dump in order to use the right offset to extract the hostname.
+
+```
+volatility -f foren.raw --profile=Win7SP0x64 hivelist
+```
+
+Output:
+```
+Volatility Foundation Volatility Framework 2.6
+Virtual            Physical           Name
+------------------ ------------------ ----
+0xfffff8a000b0f410 0x000000002720d410 \??\C:\Windows\ServiceProfiles\LocalService\NTUSER.DAT
+0xfffff8a000d00010 0x000000001ff75010 \??\C:\Windows\ServiceProfiles\NetworkService\NTUSER.DAT
+0xfffff8a000f8b410 0x00000000175e8410 \??\C:\Windows\System32\config\COMPONENTS
+0xfffff8a00145f010 0x0000000027d9b010 \SystemRoot\System32\Config\DEFAULT
+0xfffff8a0014da410 0x00000000275c0410 \SystemRoot\System32\Config\SAM
+0xfffff8a0033fe410 0x0000000069de6410 \??\C:\Users\SBA_AK\ntuser.dat
+0xfffff8a0036e7010 0x0000000069188010 \??\C:\Users\SBA_AK\AppData\Local\Microsoft\Windows\UsrClass.dat
+0xfffff8a0038fe280 0x0000000068390280 \??\C:\System Volume Information\Syscache.hve
+0xfffff8a00000f010 0x000000002cfef010 [no name]
+0xfffff8a000024010 0x000000002d07a010 \REGISTRY\MACHINE\SYSTEM
+0xfffff8a000058010 0x000000002d3ae010 \REGISTRY\MACHINE\HARDWARE
+0xfffff8a000846010 0x000000002a0e9010 \Device\HarddiskVolume1\Boot\BCD
+0xfffff8a000873010 0x0000000013880010 \SystemRoot\System32\Config\SOFTWARE
+0xfffff8a000ab8010 0x0000000027455010 \SystemRoot\System32\Config\SECURITY
+```
+
+As we can see the `\REGISTRY\MACHINE\SYSTEM` is located on `0xfffff8a000024010`.
+
+We will use the Virtual address offset as a reference to extract the registry key value that contains the machine hostname.
+
+```
+volatility -f foren.raw --profile=Win7SP0x64 printkey -o 0xfffff8a000024010 -K 'ControlSet001\Control\ComputerName\ComputerName'
+```
+
+Output:
+
+```
+Volatility Foundation Volatility Framework 2.6
+Legend: (S) = Stable   (V) = Volatile
+
+----------------------------
+Registry: \REGISTRY\MACHINE\SYSTEM
+Key name: ComputerName (S)
+Last updated: 2020-08-25 16:20:54 UTC+0000
+
+Subkeys:
+
+Values:
+REG_SZ                        : (S) mnmsrvc
+REG_SZ        ComputerName    : (S) FORENWARMUP
+```
+
+So, the hostname is `FORENWARMUP`.
+
+But we still have 2 other parts to extract which are the username and his password.
+
+And also for the next steps, I followed the following tutorial to do this: [Volatility/Retrieve-password](https://www.aldeid.com/wiki/Volatility/Retrieve-password)
+
+And the missing step was obvious because the user's hashes are stored in the `\SystemRoot\System32\Config\SAM` file.
+
+```
+volatility -f foren.raw --profile=Win7SP0x64 hashdump -y 0xfffff8a000024010 -s 0xfffff8a0014da410
+```
+
+Output:
+
+```
+Volatility Foundation Volatility Framework 2.6
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+fwordCTF:1000:aad3b435b51404eeaad3b435b51404ee:a9fdfa038c4b75ebc76dc855dd74f0da:::
+HomeGroupUser$:1002:aad3b435b51404eeaad3b435b51404ee:514fab8ac8174851bfc79d9a205a939f:::
+SBA_AK:1004:aad3b435b51404eeaad3b435b51404ee:a9fdfa038c4b75ebc76dc855dd74f0da:::
+```
+
+And that's how we get the usernames and their password's NTLM hash that need to be cracked.
+
+The first time, I though the user that we are searching for is `fwordCTF`. So, I cracked his password using [https://crackstation.net/](https://crackstation.net/).
+
+Input: `a9fdfa038c4b75ebc76dc855dd74f0da`
+
+<p align="center">
+<img src="resources/forensics-73-memory/1.PNG"/>
+</p>
+
+So, the password is `password123`.
+
+But since the flag ``FwordCTF{FORENWARMUP_fwordCTF_password123}`` doesn't work, I double remembered that in the output of ``volatility -f foren.raw --profile=Win7SP0x64 hivelist``, there was the only available user that is located under `\??\C:\Users\` is `SBA_AK` which could be the real user that we are looking for because SBA and AK are the acronyms of the 2 authors of this task. And since both the users `fwordCTF` and `SBA_AK` have the same NTLM hash, I tried the following flag and it worked.
+
+So, the flag is ```FwordCTF{FORENWARMUP_SBA_AK_password123}```
 ___
 
 
