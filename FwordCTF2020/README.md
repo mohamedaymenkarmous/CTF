@@ -1,5 +1,5 @@
 <p align="center">
-<img src="logo.png"/>
+<img src="logo.jpg"/>
 </p>
 
 # FwordCTF 2020 Writeup
