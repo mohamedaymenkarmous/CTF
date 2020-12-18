@@ -269,4 +269,8 @@ In this CTF, we played as a team ``S3c5murf`` with [Likkrid](https://twitter.com
 <img src="scoreboard/ALL3.PNG"/>
 </p>
 
+<p align="center">
+<img src="scoreboard/ALLTN.PNG"/>
+</p>
+
 CTFTime event: [https://ctftime.org/event/1209](https://ctftime.org/event/1209)
