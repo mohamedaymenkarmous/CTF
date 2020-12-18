@@ -251,22 +251,22 @@ ___
 In this CTF, we played as a team ``S3c5murf`` with [Likkrid](https://twitter.com/RidhaBejaoui1) and [v3rlust](https://twitter.com/dal0ul) and we got ranked 39th/1064:
 
 <p align="center">
-<img src="scoreboard/team.jpg"/>
+<img src="scoreboard/team.PNG"/>
 </p>
 <p align="center">
-<img src="scoreboard/tasks.jpg"/>
+<img src="scoreboard/tasks.PNG"/>
 </p>
 
 <p align="center">
-<img src="scoreboard/ALL1.jpg"/>
+<img src="scoreboard/ALL1.PNG"/>
 </p>
 ...
 <p align="center">
-<img src="scoreboard/ALL2.jpg"/>
+<img src="scoreboard/ALL2.PNG"/>
 </p>
 ...
 <p align="center">
-<img src="scoreboard/ALL3.jpg"/>
+<img src="scoreboard/ALL3.PNG"/>
 </p>
 
 CTFTime event: [https://ctftime.org/event/1209](https://ctftime.org/event/1209)
