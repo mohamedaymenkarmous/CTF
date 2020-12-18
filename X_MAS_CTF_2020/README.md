@@ -230,11 +230,11 @@ That was successful as following
 
 Then, I continued with extracting the remaining characters from the flag ([available in this folder](resources/hardware-354-santa_s_landing_pad/))
 
-And I found the following string string: ``X-MAS{W3lc0c0Me_To_E*E.E.E.}E.E.}``. But the flag didn't work the first time and that's normal because the flag is a little bit strange.
+And I found the following string string: ``X-MAS{W3lc0c0Me_To_E.E.E.E.}E.E.}``. But the flag didn't work the first time and that's normal because the flag is a little bit strange.
 
 So, I get back to the video and I found that the hand of the guy was a little bit shaking sometimes probably because the interruptor was sensitive so he want to make sure that all the states were shown. And that's how we know that I was a mistaken and that the flag is shorter than that.
 
-So, the flag is: ``X-MAS{W3lc0Me_To_E*E.E.}``
+So, the flag is: ``X-MAS{W3lc0Me_To_E.E.}``
 ___
 
 
