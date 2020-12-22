@@ -245,7 +245,7 @@ ___
 
 **Category:** Web
 **Points:** 488
-**Author:** yakuhito, Milkdrop
+**Author:** yakuhito
 **Description:**
 
 >The news is out: The pink party's candidate has won the election and is going to be the next president of The United Island of Wawanakwa! You are happy for a few minutes, but then remember the last assignment received from your boss before he left for a 3-week holiday: to make sure that the orange party's candidate is elected. Thankfully, your colleague Dimitri sent you a link that looks promising - maybe you won't get sent to Chef Hatchet after all.
