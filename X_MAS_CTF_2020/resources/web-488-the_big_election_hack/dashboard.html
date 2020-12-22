@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Election Dashboard</title>
+<style>
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+}
+td, th {
+	border: 1px solid black;
+	text-align: center;
+	padding: 8px;
+	width: 250px;
+}
+</style>
+</head>
+<body>
+<center>
+	<h1>The Election is Over!</h1>
+	<p>Hello there, all-powerful elector.<br>You can find the election results below.</p>
+	<br><br>
+	<table>
+		<tr>
+			<td>Winner</td>
+			<td id="winner-here">Loading...</td>
+		</tr>
+		<tr>
+			<td>Winner's party</td>
+			<td id="winner-party-here">Loading...</td>
+		</tr>
+	</table>
+	<br><br>
+	<button type="button" onclick="changeResults()" disabled>SET/CHANGE RESULTS</button> <!-- Function deleted after the election ended -->
+</center>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-functions.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDUOa5rtOnbVbF7T7ivUeBBR78L2tkODmY",
+    authDomain: "official-wawanakwa-elections.firebaseapp.com",
+    databaseURL: "https://official-wawanakwa-elections.firebaseio.com",
+    projectId: "official-wawanakwa-elections",
+    storageBucket: "official-wawanakwa-elections.appspot.com",
+    messagingSenderId: "95856642143",
+    appId: "1:95856642143:web:8b7fd33b805fadf104f3ea"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>
