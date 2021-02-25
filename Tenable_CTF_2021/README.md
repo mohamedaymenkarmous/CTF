@@ -15,7 +15,7 @@ This repository serves as a writeup for Tenable CTF 2021
 <img src="resources/tenable-25-the_ultimate_mutant_marvel_team_up/_description.PNG"/>
 </p>
 
-File: [resources/tenable-25-the_ultimate_mutant_marvel_team_up/Linux_Scan.db](Linux_Scan.db)
+File: [Linux_Scan.db](resources/tenable-25-the_ultimate_mutant_marvel_team_up/Linux_Scan.db)
 
 ### Write-up
 In this task, we need  to install Nessus scanner and use it to read the encrypted database, so I've installed its community version (free with a trial version).
@@ -46,7 +46,7 @@ But I found something that could be interesting which is the Export button:
 
 We know that the file that we've imported was a Nessus DB but what about the Nessus export?
 
-After I exported the file and I downloaded it I got a text file [resources/tenable-25-the_ultimate_mutant_marvel_team_up/Linux_Scan_uuo914.nessus](Linux_Scan_uuo914.nessus) which contains the flag.
+After I exported the file and I downloaded it I got a text file [Linux_Scan_uuo914.nessus](resources/tenable-25-the_ultimate_mutant_marvel_team_up/Linux_Scan_uuo914.nessus) which contains the flag.
 
 <p align="center">
 <img src="resources/tenable-25-the_ultimate_mutant_marvel_team_up/5.PNG"/>
@@ -70,7 +70,7 @@ _____
 <img src="resources/tenable-25-knowledge_is_knowing_a_tomato_is_a_fruit/_description.PNG"/>
 </p>
 
-File: [resources/tenable-25-the_ultimate_mutant_marvel_team_up/Linux_Scan.db](Linux_Scan.db)
+File: [Linux_Scan.db](resources/tenable-25-the_ultimate_mutant_marvel_team_up/Linux_Scan.db)
 
 ### Write-up
 This is the continuity of the previous task.
@@ -81,7 +81,7 @@ In this task, I tried to download the scan results for the host `172.26.48.53` u
 <img src="resources/tenable-25-the_ultimate_mutant_marvel_team_up/1.PNG"/>
 </p>
 
-I searched for the flag in the downloaded .txt [resources/tenable-25-knowledge_is_knowing_a_tomato_is_a_fruit/kb_172.26.48.53.txt](kb_172.26.48.53.txt) file and I found it:
+I searched for the flag in the downloaded .txt [kb_172.26.48.53.txt](resources/tenable-25-knowledge_is_knowing_a_tomato_is_a_fruit/kb_172.26.48.53.txt) file and I found it:
 
 <p align="center">
 <img src="resources/tenable-25-the_ultimate_mutant_marvel_team_up/2.PNG"/>
