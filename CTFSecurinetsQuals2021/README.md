@@ -1,5 +1,5 @@
 <p align="center">
-<img src="logo.png"/>
+<img src="logo.png" width=30%/>
 </p>
 
 # CTFSecurinets Quals 2021 Writeup
