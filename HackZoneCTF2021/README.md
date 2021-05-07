@@ -127,6 +127,11 @@ I searched then for `HZiXCTF` which is the flag format and I found it
 </p>
 
 So the flag is `HZiXCTF{d4no2WillBeInWasm}`.
+
+[Video Demo on Youtube](https://www.youtube.com/watch?v=N6R0XNwLYpw):
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/N6R0XNwLYpw/0.jpg)](https://www.youtube.com/watch?v=N6R0XNwLYpw)
+
 ___
 
 
