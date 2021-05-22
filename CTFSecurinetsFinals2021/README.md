@@ -87,4 +87,8 @@ So, we need to fulfill that condition and the password needs to be equal to the 
 </p>
 
 So, the flag is ``Securinets{JS_1s_s0meh0w_am4zing_h0w_1t_works}``
+
+[Video Demo on Youtube](https://www.youtube.com/watch?v=VAuhGCign5Q):
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/VAuhGCign5Q/0.jpg)](https://www.youtube.com/watch?v=VAuhGCign5Q)
 ___
